@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import dataMonitor.DataMonitor;
 import elevator.Elevator;
+import elevator.ElevatorDirection;
 import floor.Floor;
+import userInteraction.UserPriority;
 
 public class ElevatorManager {
 	private ArrayList<Floor> floors;
@@ -39,8 +41,28 @@ public class ElevatorManager {
 		return sharedInstance;
 	}
 	
+	public void goPickUp(int floorId, ElevatorDirection direction, UserPriority priority, Elevator elev) {
+		System.out.println("Current Floor: " + elev.getCurrentFloorId());
+		
+		//checks if the user is below or above the elevator
+		if (floorId >= elev.getCurrentFloorId()) {
+			while(floorId > elev.getCurrentFloorId()) {
+				System.out.println("Elevator Going Up...");
+				elev.setCurrentFloorId(elev.getCurrentFloorId()+1);
+				System.out.println("Current Floor: " + elev.getCurrentFloorId());
+			}
+		}
+		else {
+			while(floorId < elev.getCurrentFloorId()) {
+				System.out.println("Elevator Going Down...");
+				elev.setCurrentFloorId(elev.getCurrentFloorId()-1);
+				System.out.println("Current Floor: " + elev.getCurrentFloorId());
+			}
+		}
+	}
+	
 	public void  handleRequestMagically() {
-		//TODO
+		
 	}
 
 	//Getters & Setters
