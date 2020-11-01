@@ -7,6 +7,7 @@ import elevator.Elevator;
 import elevator.ElevatorDirection;
 import floor.Floor;
 import userInteraction.UserPriority;
+import java.lang.Math;
 
 public class ElevatorManager {
 	private ArrayList<Floor> floors;
@@ -41,28 +42,81 @@ public class ElevatorManager {
 		return sharedInstance;
 	}
 	
-	public void goPickUp(int floorId, ElevatorDirection direction, UserPriority priority, Elevator elev) {
-		System.out.println("Current Floor: " + elev.getCurrentFloorId());
+	public Elevator handlePickUpRequest(int floorId, ElevatorDirection direction, UserPriority priority) {
+		if (elevators.size() == 0) {
+			System.out.println("\nERROR: No Elevators\n");
+			return null; 
+		}
+		
+		if (floors.size() == 0) {
+			System.out.println("\nERROR: No Floors\n");
+			return null; 
+		}
+		
+		if((floorId < floors.get(0).getId()) || floorId > floors.get(floors.size() - 1).getId()) {
+			System.out.println("\nERROR: Floor ID is not valid\n");
+			return null;
+		}
+		
+		Elevator nearestElevator = elevators.get(0);
+		int minimumDistance = Math.abs(floorId - elevators.get(0).getCurrentFloorId());
+		for(Elevator e: elevators) {
+			if ( Math.abs(floorId - e.getCurrentFloorId()) < minimumDistance ) {
+				minimumDistance = Math.abs(floorId - e.getCurrentFloorId());
+				nearestElevator = e;
+			}
+		}
+		
+		System.out.println("Elevator " + nearestElevator.getId()+  " in Current Floor: " + nearestElevator.getCurrentFloorId() + " is assigned to task.");
 		
 		//checks if the user is below or above the elevator
-		if (floorId >= elev.getCurrentFloorId()) {
-			while(floorId > elev.getCurrentFloorId()) {
-				System.out.println("Elevator Going Up...");
-				elev.setCurrentFloorId(elev.getCurrentFloorId()+1);
-				System.out.println("Current Floor: " + elev.getCurrentFloorId());
+		if (floorId >= nearestElevator.getCurrentFloorId()) {
+			while(floorId >  nearestElevator.getCurrentFloorId()) {
+				System.out.println("Elevator " + nearestElevator.getId() +  " Going Up...");
+				nearestElevator.goToFloor(nearestElevator.getCurrentFloorId()+1);
 			}
 		}
 		else {
-			while(floorId < elev.getCurrentFloorId()) {
-				System.out.println("Elevator Going Down...");
-				elev.setCurrentFloorId(elev.getCurrentFloorId()-1);
-				System.out.println("Current Floor: " + elev.getCurrentFloorId());
+			while(floorId <  nearestElevator.getCurrentFloorId()) {
+				System.out.println("Elevator " + nearestElevator.getId() +  " Going Down...");
+				nearestElevator.goToFloor(nearestElevator.getCurrentFloorId()-1);
 			}
 		}
+		
+		return nearestElevator;
 	}
 	
-	public void  handleRequestMagically() {
+	public boolean handleDestinationRequest(int floorId, UserPriority priority, Elevator elevator) {
+		if (elevators.size() == 0) {
+			System.out.println("\nERROR: No Elevators\n");
+			return false; 
+		}
 		
+		if (floors.size() == 0) {
+			System.out.println("\nERROR: No Floors\n");
+			return false; 
+		}
+		
+		if((floorId < floors.get(0).getId()) || floorId > floors.get(floors.size() - 1).getId()) {
+			System.out.println("\nERROR: Floor ID is not valid\n");
+			return false;
+		}
+		
+		//checks if the user is below or above the elevator
+		if (floorId >= elevator.getCurrentFloorId()) {
+			while(floorId >  elevator.getCurrentFloorId()) {
+				System.out.println("Elevator " + elevator.getId() +  " Going Up...");
+				elevator.goToFloor(elevator.getCurrentFloorId()+1);
+			}
+		}
+		else {
+			while(floorId <  elevator.getCurrentFloorId()) {
+				System.out.println("Elevator " + elevator.getId() +  " Going Down...");
+				elevator.goToFloor(elevator.getCurrentFloorId()-1);
+			}
+		}
+		
+		return true;
 	}
 
 	//Getters & Setters

@@ -28,3 +28,10 @@ public class DataMonitor {
 		 return (HashMap<Integer, ElevatorEvent>) events.clone();
 	}
 }
+
+
+
+
+
+
+

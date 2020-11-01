@@ -12,7 +12,7 @@ public class Elevator {
 	
 	//Constructor
 	public Elevator(int id, int maximumLoad, int currentFloorId) {
-		this.currentFloorId = id;
+		this.id = id;
 		this.maximumLoad = maximumLoad;
 		this.currentFloorId = currentFloorId;
 		
@@ -31,7 +31,14 @@ public class Elevator {
 	}
 	
 	public void goToFloor(int floorId) {
+		//Introduce a delay to mimic real life transition delay
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		this.currentFloorId = floorId;
+		System.out.println("Elevator " + id + " is in Current Floor: " + getCurrentFloorId());
 	}
 	
 

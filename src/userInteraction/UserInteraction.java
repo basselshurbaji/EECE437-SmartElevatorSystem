@@ -22,34 +22,29 @@ public class UserInteraction {
 	}
 	
 	//These functions should be sending these requests to the elevator manager to handle them properly
-	public void requestElevatorPickUp(int floorId, ElevatorDirection direction, UserPriority priority, Elevator elev) {
-		elevatorManager.goPickUp(floorId, direction, priority, elev);
+	public Elevator requestElevatorPickUp(int floorId, ElevatorDirection direction, UserPriority priority) {
+		return elevatorManager.handlePickUpRequest(floorId, direction, priority);
 	}
 	
-	public void requestElevatorToDesitination(int floorId, UserPriority priority) {
-		//TODO
-		//elevatorManager.handleRequestMagically(elev, goToFloorID);
+	public boolean requestElevatorToDestination(int floorId, UserPriority priority, Elevator elevator) {
+		return elevatorManager.handleDestinationRequest(floorId, priority, elevator);
 	}
 	
 	public void stopElevator(int elevatorId) {
 		//TODO
-		//elevatorManager.handleRequestMagically(elev, goToFloorID);
 	}
 	
 	public void setAlarmAlert(int elevatorId) {
 		//TODO
-		//elevatorManager.handleRequestMagically(elev, goToFloorID);
 	}
 	
 	
 	public void closeDoor(int elevatorId) {
 		//TODO
-		//elevatorManager.handleRequestMagically(elev, goToFloorID);
 	}
 	
 	public void openDoor(int elevatorId) {
 		//TODO
-		//elevatorManager.handleRequestMagically(elev, goToFloorID);
 	}
 	
 }
