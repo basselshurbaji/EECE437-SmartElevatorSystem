@@ -15,8 +15,6 @@ public class ElevatorManager {
 	private ElevatorManagerMode mode;
 	private DataMonitor dataMonitor;
 	private ElevatorManagerStatus status;
-	private AvailabilityController availabilityController;
-	private FloorPriorityController floorPriorityController;
 	private EmergencyController emergencyController;
 	
 	private static ElevatorManager sharedInstance;
@@ -29,8 +27,6 @@ public class ElevatorManager {
 		this.mode = ElevatorManagerMode.NORMAL;
 		this.status = ElevatorManagerStatus.OFF;
 		
-		this.availabilityController = new AvailabilityController();
-		this.floorPriorityController = new FloorPriorityController();
 		this.emergencyController = new EmergencyController();
 	}
 	
@@ -43,21 +39,25 @@ public class ElevatorManager {
 	}
 	
 	public Elevator handlePickUpRequest(int floorId, ElevatorDirection direction, UserPriority priority) {
-		if (elevators.size() == 0) {
-			System.out.println("\nERROR: No Elevators\n");
-			return null; 
-		}
-		
-		if (floors.size() == 0) {
-			System.out.println("\nERROR: No Floors\n");
-			return null; 
-		}
-		
-		if((floorId < floors.get(0).getId()) || floorId > floors.get(floors.size() - 1).getId()) {
-			System.out.println("\nERROR: Floor ID is not valid\n");
+		if(!(validateElevators() && validateFloors(floorId)))
 			return null;
-		}
 		
+		Elevator nearestElevator = getNearestElevatorToFloor(floorId);
+		System.out.println("Elevator " + nearestElevator.getId()+  " in Current Floor: " + nearestElevator.getCurrentFloorId() + " is assigned to task.");
+		nearestElevator.goToFloor(floorId);
+		
+		return nearestElevator;
+	}
+	
+	public boolean handleDestinationRequest(int floorId, UserPriority priority, Elevator elevator) {
+		if(!(validateElevators() && validateFloors(floorId)))
+			return false;
+		
+		elevator.goToFloor(floorId);
+		return true;
+	}
+	
+	private Elevator getNearestElevatorToFloor(int floorId) {
 		Elevator nearestElevator = elevators.get(0);
 		int minimumDistance = Math.abs(floorId - elevators.get(0).getCurrentFloorId());
 		for(Elevator e: elevators) {
@@ -66,32 +66,18 @@ public class ElevatorManager {
 				nearestElevator = e;
 			}
 		}
-		
-		System.out.println("Elevator " + nearestElevator.getId()+  " in Current Floor: " + nearestElevator.getCurrentFloorId() + " is assigned to task.");
-		
-		//checks if the user is below or above the elevator
-		if (floorId >= nearestElevator.getCurrentFloorId()) {
-			while(floorId >  nearestElevator.getCurrentFloorId()) {
-				System.out.println("Elevator " + nearestElevator.getId() +  " Going Up...");
-				nearestElevator.goToFloor(nearestElevator.getCurrentFloorId()+1);
-			}
-		}
-		else {
-			while(floorId <  nearestElevator.getCurrentFloorId()) {
-				System.out.println("Elevator " + nearestElevator.getId() +  " Going Down...");
-				nearestElevator.goToFloor(nearestElevator.getCurrentFloorId()-1);
-			}
-		}
-		
 		return nearestElevator;
 	}
 	
-	public boolean handleDestinationRequest(int floorId, UserPriority priority, Elevator elevator) {
+	private boolean validateElevators() {
 		if (elevators.size() == 0) {
 			System.out.println("\nERROR: No Elevators\n");
 			return false; 
 		}
-		
+		return true;
+	}
+	
+	private boolean validateFloors(int floorId) {
 		if (floors.size() == 0) {
 			System.out.println("\nERROR: No Floors\n");
 			return false; 
@@ -100,20 +86,6 @@ public class ElevatorManager {
 		if((floorId < floors.get(0).getId()) || floorId > floors.get(floors.size() - 1).getId()) {
 			System.out.println("\nERROR: Floor ID is not valid\n");
 			return false;
-		}
-		
-		//checks if the user is below or above the elevator
-		if (floorId >= elevator.getCurrentFloorId()) {
-			while(floorId >  elevator.getCurrentFloorId()) {
-				System.out.println("Elevator " + elevator.getId() +  " Going Up...");
-				elevator.goToFloor(elevator.getCurrentFloorId()+1);
-			}
-		}
-		else {
-			while(floorId <  elevator.getCurrentFloorId()) {
-				System.out.println("Elevator " + elevator.getId() +  " Going Down...");
-				elevator.goToFloor(elevator.getCurrentFloorId()-1);
-			}
 		}
 		
 		return true;
