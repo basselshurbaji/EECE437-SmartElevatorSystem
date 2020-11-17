@@ -8,6 +8,7 @@ import floor.Floor;
 import floor.FloorPriority;
 import elevator.Elevator;
 import elevator.ElevatorDirection;
+import elevator.ElevatorObserver;
 import userInteraction.UserInteraction;
 import userInteraction.UserPriority;
 
@@ -24,9 +25,10 @@ public class Demo {
 		//Initializing  Elevators
 		ArrayList<Elevator> elevators = new ArrayList<Elevator>();
 		Elevator E0 = new Elevator(0,100,0);
-		Elevator E1 = new Elevator(1,100,0);
+		
+		//Elevator E1 = new Elevator(1,100,0);
 		elevators.add(E0);	
-		elevators.add(E1);
+		//elevators.add(E1);
 		
 		//Initializing Floors
 		ArrayList<Floor> floors = new ArrayList<Floor>();
@@ -43,47 +45,16 @@ public class Demo {
 		EM.setElevators(elevators);
 		EM.setFloors(floors);
 		
-		
-		//Infinite loop that allows user to call an elevator and go to a desired destination.
-		while(true) {
-			Scanner scan = new Scanner(System.in);
-			
-			//Specify floor where user is located.
-			System.out.print("\nEnter Floor Number(to exit, enter -1): ");
-			int floor = scan.nextInt();
-			
-			if (floor == -1) {
-				//Termination condition
-				break;
-			}
-			
-			//Request elevator pickup from the UserInteraction and return the assigned elevator
-			//The UserInteraction will communicate with the ElevatorManager to perform the task.
-			Elevator elv = UI.requestElevatorPickUp(floor,  ElevatorDirection.STATIONARY, UserPriority.NORMAL);
-			
-			//In case the user location doesn't exist, the returned elevator will be null.
-			if(elv == null) {
-				continue;
-			}
-			
-			///Specify destination floor where the user wants the elevator to take him.
-			int destinationFloor;
-			
-			//If the user inputs an invalid destination floor, give an error and ask him to re-enter a valid floor. 
-			do {
-				System.out.print("\nEnter destination floor: ");
-				destinationFloor = scan.nextInt();
-			} while(!UI.requestElevatorToDestination(destinationFloor, UserPriority.NORMAL, elv));
-			
-			
-			//Print statuses of all elevators
-			System.out.print("\nSTATUS OF ELEVATORS:\n");
-			for(Elevator e: EM.getElevators()) {
-				System.out.println("Elevator " + e.getId() + " is at floor: " + e.getCurrentFloorId());
-			}
+		UI.requestElevatorPickUp(3, UserPriority.NORMAL);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		System.out.print("\nEXITED");
+		UI.requestElevatorPickUp(2, UserPriority.NORMAL);
+		
 	}
 	
 }
