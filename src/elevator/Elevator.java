@@ -24,11 +24,11 @@ public class Elevator {
 		return (currentDirection == ElevatorDirection.DOWN) || (currentDirection == ElevatorDirection.UP) || (currentDirection == ElevatorDirection.HANDLING_REQUEST);
 	}
 	
-	public void addObserver(ElevatorObserver observer) {
+	public synchronized void addObserver(ElevatorObserver observer) {
 		observers.add(observer);
 	}
 	
-	public void removeObserver(ElevatorObserver observer) {
+	public synchronized void removeObserver(ElevatorObserver observer) {
 		observers.remove(observer);
 	}
 	

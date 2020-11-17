@@ -14,21 +14,16 @@ import userInteraction.UserPriority;
 
 public class Demo {
 
-
 	public static void main(String[] args) {
-		//Getting UserInteraction Singleton
-		UserInteraction UI = UserInteraction.getInstance();
-		
 		//Getting ElevatorManager Singleton
 		ElevatorManager EM = ElevatorManager.getInstance();
 		
 		//Initializing  Elevators
 		ArrayList<Elevator> elevators = new ArrayList<Elevator>();
 		Elevator E0 = new Elevator(0,100,0);
-		
-		//Elevator E1 = new Elevator(1,100,0);
+		Elevator E1 = new Elevator(1,100,0);
 		elevators.add(E0);	
-		//elevators.add(E1);
+		elevators.add(E1);
 		
 		//Initializing Floors
 		ArrayList<Floor> floors = new ArrayList<Floor>();
@@ -45,16 +40,25 @@ public class Demo {
 		EM.setElevators(elevators);
 		EM.setFloors(floors);
 		
-		UI.requestElevatorPickUp(3, UserPriority.NORMAL);
+		User user1 = new User(0,2);
+		User user2 = new User(2,3);
+		E0.addObserver(user1);
+		E0.addObserver(user2);
+		E1.addObserver(user1);
+		E1.addObserver(user2);
+		
+		user1.requestPickUp();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		UI.requestElevatorPickUp(2, UserPriority.NORMAL);
-		
+		user2.requestPickUp();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
