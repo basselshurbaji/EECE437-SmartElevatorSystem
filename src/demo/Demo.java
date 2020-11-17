@@ -41,21 +41,26 @@ public class Demo {
 		EM.setFloors(floors);
 		
 		User user1 = new User(0,2);
-		User user2 = new User(2,3);
+		User user2 = new User(0,2);
+		User user3 = new User(3,0);
+		
 		E0.addObserver(user1);
 		E0.addObserver(user2);
+		E0.addObserver(user3);
 		E1.addObserver(user1);
 		E1.addObserver(user2);
+		E1.addObserver(user3);
 		
 		user1.requestPickUp();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		delay(500);
 		user2.requestPickUp();
+		delay(500);
+		user3.requestPickUp();
+	}
+	
+	private static void delay(int delay) {
 		try {
-			Thread.sleep(500);
+			Thread.sleep(delay);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

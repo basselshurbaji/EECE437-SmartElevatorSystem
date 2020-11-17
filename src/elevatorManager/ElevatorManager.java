@@ -59,11 +59,11 @@ public class ElevatorManager implements ElevatorObserver {
 		
 		Elevator nearestElevator = getNearestAvailableElevatorToFloor(floorId);
 		if(nearestElevator == null) {
-			System.out.print("\nCurrently There are no available elevators\n");
+			System.out.print("\ncurrently there are no available elevators\n");
 			return false;
 		}
 		
-		System.out.println("Elevator " + nearestElevator.getId()+  " in Current Floor: " + nearestElevator.getCurrentFloorId() + " is assigned to task.");
+		System.out.println("\nElevator " + nearestElevator.getId()+  " at floor " + nearestElevator.getCurrentFloorId() + " is assigned to task.");
 		pickUpRequests.remove();
 		nearestElevator.goToFloor(floorId, ElevatorRequestType.PICKUP);
 		return true;
@@ -118,9 +118,9 @@ public class ElevatorManager implements ElevatorObserver {
 	@Override
 	public void elevatorDidFinishTask(Elevator elevator) {
 		if (elevator.getCurrentDirection() == ElevatorDirection.HANDLING_REQUEST) {
-			System.out.print("\nAn elevator is now ready for pickup\n");
+			System.out.print("\nElevator " + elevator.getId() + " is now ready for pickup at floor " + elevator.getCurrentFloorId() + "\n");
 		} else {
-			System.out.print("\nAn elevator is now free\n");
+			System.out.print("\nElevator " + elevator.getId() + " is now free at floor " + elevator.getCurrentFloorId() +"\n");
 		}
 		handlePickUpRequest();
 	}	

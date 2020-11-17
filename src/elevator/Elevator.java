@@ -89,11 +89,10 @@ class ElevatorTask extends Thread {
 		try {
 			if (floorId >= elevator.getCurrentFloorId()) {
 				elevator.setCurrentDirection(ElevatorDirection.UP);
+				System.out.print("\nElevator " + elevator.getId() + " is going up from floor " + elevator.getCurrentFloorId() + " to floor " + floorId + "\n");
 				while(floorId > elevator.getCurrentFloorId()) {
-					System.out.println("Elevator " + elevator.getId() +  " Going Up...");
 					Thread.sleep(1000);
 					elevator.setCurrentFloorId(elevator.getCurrentFloorId() + 1);
-					System.out.println("Elevator " + elevator.getId() + " is at Floor: " + elevator.getCurrentFloorId());
 				}
 				
 				if (type == ElevatorRequestType.PICKUP) {
@@ -105,11 +104,10 @@ class ElevatorTask extends Thread {
 			}
 			else {
 				elevator.setCurrentDirection(ElevatorDirection.DOWN);
+				System.out.print("\nElevator " + elevator.getId() + " is going down from floor " + elevator.getCurrentFloorId() + " to floor " + floorId + "\n");
 				while(floorId < elevator.getCurrentFloorId()) {
-					System.out.println("Elevator " +  elevator.getId() +  " Going Down...");
 					Thread.sleep(1000);
 					elevator.setCurrentFloorId(elevator.getCurrentFloorId() - 1);
-					System.out.println("Elevator " +  elevator.getId() + " is at Floor: " + elevator.getCurrentFloorId());
 				}
 				if (type == ElevatorRequestType.PICKUP) {
 					elevator.setCurrentDirection(ElevatorDirection.HANDLING_REQUEST);
