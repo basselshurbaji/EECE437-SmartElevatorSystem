@@ -1,56 +1,50 @@
 package elevator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Elevator {
 	private int id;
-	private int maximumLoad;
 	private int currentFloorId;
 	private ElevatorDoorStatus doorStatus;
 	private ElevatorDirection currentDirection;
-	private int currentLoad;
-	
-	ElevatorDoorController doorController;
+	private List<ElevatorObserver> observers = new ArrayList<>();
 	
 	//Constructor
 	public Elevator(int id, int maximumLoad, int currentFloorId) {
 		this.id = id;
-		this.maximumLoad = maximumLoad;
 		this.currentFloorId = currentFloorId;
 		
 		this.doorStatus = ElevatorDoorStatus.CLOSED;
 		this.currentDirection = ElevatorDirection.STATIONARY;
-		this.currentLoad = 0;
 	}
 	
 	// Methods
-	public boolean isOverloaded() {
-		return currentLoad > maximumLoad;
+	public boolean isBusy() {
+		return (currentDirection == ElevatorDirection.DOWN) || (currentDirection == ElevatorDirection.UP) || (currentDirection == ElevatorDirection.HANDLING_REQUEST);
 	}
 	
-	public boolean isMoving() {
-		return currentDirection != ElevatorDirection.STATIONARY;
+	public void addObserver(ElevatorObserver observer) {
+		observers.add(observer);
 	}
 	
-	public void goToFloor(int floorId) {
-		//Introduce a delay to mimic real life transition delay
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	public void removeObserver(ElevatorObserver observer) {
+		observers.remove(observer);
+	}
+	
+	public void notifyObservers() {
+		for(ElevatorObserver obs: observers) {
+			obs.elevatorDidFinishTask(this);
 		}
-		this.currentFloorId = floorId;
-		System.out.println("Elevator " + id + " is in Current Floor: " + getCurrentFloorId());
+	}
+	
+	public void goToFloor(int floorId, ElevatorRequestType type) {
+		ElevatorTask task = new ElevatorTask(this, floorId, type);
+		task.start();
 	}
 	
 
 	//Getters & Setters
-	public int getMaximumLoad() {
-		return maximumLoad;
-	}
-
-	public void setMaximumLoad(int maximumLoad) {
-		this.maximumLoad = maximumLoad;
-	}
-
 	public int getCurrentFloorId() {
 		return currentFloorId;
 	}
@@ -78,14 +72,54 @@ public class Elevator {
 	public int getId() {
 		return id;
 	}
-
-	public int getCurrentLoad() {
-		return currentLoad;
-	}
-
-	public void setCurrentLoad(int currentLoad) {
-		this.currentLoad = currentLoad;
-	}
 	
+}
+
+class ElevatorTask extends Thread {
+	Elevator elevator;
+	int floorId;
+	ElevatorRequestType type;
 	
+	public ElevatorTask(Elevator elevator, int floorId, ElevatorRequestType type) {
+		this.elevator = elevator;
+		this.floorId = floorId;
+		this.type = type;
+	}
+    public void run() {
+		try {
+			if (floorId >= elevator.getCurrentFloorId()) {
+				elevator.setCurrentDirection(ElevatorDirection.UP);
+				while(floorId > elevator.getCurrentFloorId()) {
+					System.out.println("Elevator " + elevator.getId() +  " Going Up...");
+					Thread.sleep(1000);
+					elevator.setCurrentFloorId(elevator.getCurrentFloorId() + 1);
+					System.out.println("Elevator " + elevator.getId() + " is at Floor: " + elevator.getCurrentFloorId());
+				}
+				
+				if (type == ElevatorRequestType.PICKUP) {
+					elevator.setCurrentDirection(ElevatorDirection.HANDLING_REQUEST);
+				} else {
+					elevator.setCurrentDirection(ElevatorDirection.STATIONARY);
+				}
+				elevator.notifyObservers();
+			}
+			else {
+				elevator.setCurrentDirection(ElevatorDirection.DOWN);
+				while(floorId < elevator.getCurrentFloorId()) {
+					System.out.println("Elevator " +  elevator.getId() +  " Going Down...");
+					Thread.sleep(1000);
+					elevator.setCurrentFloorId(elevator.getCurrentFloorId() - 1);
+					System.out.println("Elevator " +  elevator.getId() + " is at Floor: " + elevator.getCurrentFloorId());
+				}
+				if (type == ElevatorRequestType.PICKUP) {
+					elevator.setCurrentDirection(ElevatorDirection.HANDLING_REQUEST);
+				} else {
+					elevator.setCurrentDirection(ElevatorDirection.STATIONARY);
+				}
+				elevator.notifyObservers();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
 }
