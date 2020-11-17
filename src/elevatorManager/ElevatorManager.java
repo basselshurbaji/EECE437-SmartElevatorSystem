@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import elevator.Elevator;
+import elevator.ElevatorDirection;
 import elevator.ElevatorObserver;
 import elevator.ElevatorRequestType;
 import floor.Floor;
@@ -116,7 +117,11 @@ public class ElevatorManager implements ElevatorObserver {
 	
 	@Override
 	public void elevatorDidFinishTask(Elevator elevator) {
-		System.out.print("\nAn elevator is now free\n");
+		if (elevator.getCurrentDirection() == ElevatorDirection.HANDLING_REQUEST) {
+			System.out.print("\nAn elevator is now ready for pickup\n");
+		} else {
+			System.out.print("\nAn elevator is now free\n");
+		}
 		handlePickUpRequest();
 	}	
 
