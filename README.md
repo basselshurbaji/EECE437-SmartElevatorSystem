@@ -1,2 +1,24 @@
-# Smart Elevator System
+### Team Members
+
+Bassel Shurbaji - Christopher Farah - Hadi Sandid - Justin El Halabi - Sarah Annan
+
+### Project Idea
+
 Our project idea is to design a smart system that is capable of managing elevators in real-time, with the goal of minimizing “waiting time” for elevator users, as well as maximizing elevator availability in critical floors/sectors. The smart system will also be modular in the sense that it can be integrated in any environment. Hospitals, for example, might have different floor priorities our smart system must take into consideration (e.g. The emergency rooms will have higher priority than regular doctor appointment rooms).
+
+Our elevator system will provide :
+
+- Maximum availability & minimum delay for users
+- Safety and reliability
+- Modular system that can be customized for any environment
+- Store all elevator events
+- Emergency tolerance
+- Smart coordination to ensure best user experience
+
+### Implementation Diagram
+
+*Last Updated on 18/11/2020*
+
+![Diagram1](https://raw.githubusercontent.com/hsandid/hsandid.github.io/master/assets/images/Diagram1.png)
+
+![Diagram2](https://raw.githubusercontent.com/hsandid/hsandid.github.io/master/assets/images/Diagram2.png)
