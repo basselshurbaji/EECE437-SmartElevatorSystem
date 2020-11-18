@@ -3,11 +3,17 @@ package elevator;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * STATUS: In Progress/Used in current implementation
+ * This component defines the behavior and properties of elevators in our system.
+ * It is responsible for notifying all ElevatorObservers (User,ElevatorManager,...) when it becomes available or ready for pickup.
+ * Elevator instances can spawn threads to allow for concurrency purposes when multiple elevators are active simultaneously in the system.
+ */
 public class Elevator {
 	private int id;
 	private int currentFloorId;
 	private ElevatorDoorStatus doorStatus;
-	private ElevatorDirection currentDirection;
+	private ElevatorStatus currentDirection;
 	private List<ElevatorObserver> observers = new ArrayList<>();
 	
 	//Constructor
@@ -16,12 +22,12 @@ public class Elevator {
 		this.currentFloorId = currentFloorId;
 		
 		this.doorStatus = ElevatorDoorStatus.CLOSED;
-		this.currentDirection = ElevatorDirection.STATIONARY;
+		this.currentDirection = ElevatorStatus.STATIONARY;
 	}
 	
 	// Methods
 	public boolean isBusy() {
-		return (currentDirection == ElevatorDirection.DOWN) || (currentDirection == ElevatorDirection.UP) || (currentDirection == ElevatorDirection.HANDLING_REQUEST);
+		return (currentDirection == ElevatorStatus.DOWN) || (currentDirection == ElevatorStatus.UP) || (currentDirection == ElevatorStatus.HANDLING_REQUEST);
 	}
 	
 	public synchronized void addObserver(ElevatorObserver observer) {
@@ -39,6 +45,16 @@ public class Elevator {
 	}
 	
 	public void goToFloor(int floorId, ElevatorRequestType type) {
+		if(currentFloorId == floorId) {
+			System.out.print("\nElevator " + id + " is already at floor " + floorId + "\n");
+			if (type == ElevatorRequestType.PICKUP) {
+				setCurrentDirection(ElevatorStatus.HANDLING_REQUEST);
+			} else {
+				setCurrentDirection(ElevatorStatus.STATIONARY);
+			}
+			notifyObservers();
+			return;
+		}
 		ElevatorTask task = new ElevatorTask(this, floorId, type);
 		task.start();
 	}
@@ -61,11 +77,11 @@ public class Elevator {
 		this.doorStatus = doorStatus;
 	}
 
-	public ElevatorDirection getCurrentDirection() {
+	public ElevatorStatus getCurrentDirection() {
 		return currentDirection;
 	}
 
-	public void setCurrentDirection(ElevatorDirection currentDirection) {
+	public void setCurrentDirection(ElevatorStatus currentDirection) {
 		this.currentDirection = currentDirection;
 	}
 
@@ -88,7 +104,7 @@ class ElevatorTask extends Thread {
     public void run() {
 		try {
 			if (floorId >= elevator.getCurrentFloorId()) {
-				elevator.setCurrentDirection(ElevatorDirection.UP);
+				elevator.setCurrentDirection(ElevatorStatus.UP);
 				System.out.print("\nElevator " + elevator.getId() + " is going up from floor " + elevator.getCurrentFloorId() + " to floor " + floorId + "\n");
 				while(floorId > elevator.getCurrentFloorId()) {
 					Thread.sleep(1000);
@@ -96,23 +112,23 @@ class ElevatorTask extends Thread {
 				}
 				
 				if (type == ElevatorRequestType.PICKUP) {
-					elevator.setCurrentDirection(ElevatorDirection.HANDLING_REQUEST);
+					elevator.setCurrentDirection(ElevatorStatus.HANDLING_REQUEST);
 				} else {
-					elevator.setCurrentDirection(ElevatorDirection.STATIONARY);
+					elevator.setCurrentDirection(ElevatorStatus.STATIONARY);
 				}
 				elevator.notifyObservers();
 			}
 			else {
-				elevator.setCurrentDirection(ElevatorDirection.DOWN);
+				elevator.setCurrentDirection(ElevatorStatus.DOWN);
 				System.out.print("\nElevator " + elevator.getId() + " is going down from floor " + elevator.getCurrentFloorId() + " to floor " + floorId + "\n");
 				while(floorId < elevator.getCurrentFloorId()) {
 					Thread.sleep(1000);
 					elevator.setCurrentFloorId(elevator.getCurrentFloorId() - 1);
 				}
 				if (type == ElevatorRequestType.PICKUP) {
-					elevator.setCurrentDirection(ElevatorDirection.HANDLING_REQUEST);
+					elevator.setCurrentDirection(ElevatorStatus.HANDLING_REQUEST);
 				} else {
-					elevator.setCurrentDirection(ElevatorDirection.STATIONARY);
+					elevator.setCurrentDirection(ElevatorStatus.STATIONARY);
 				}
 				elevator.notifyObservers();
 			}

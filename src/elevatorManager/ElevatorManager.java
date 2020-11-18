@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import elevator.Elevator;
-import elevator.ElevatorDirection;
+import elevator.ElevatorStatus;
 import elevator.ElevatorObserver;
 import elevator.ElevatorRequestType;
 import floor.Floor;
 import java.lang.Math;
-
+/*
+ * STATUS: In Progress/Used in current implementation
+ * This component is responsible for handling all requests by the UserInteraction component. 
+ * Currently, there are two types of requests: pickUprequest, destination request.
+ * Each type of request has a queue. The requests are currently handled FIFO.
+ */
 public class ElevatorManager implements ElevatorObserver {
 	private ArrayList<Floor> floors;
 	private ArrayList<Elevator> elevators;
@@ -117,7 +122,7 @@ public class ElevatorManager implements ElevatorObserver {
 	
 	@Override
 	public void elevatorDidFinishTask(Elevator elevator) {
-		if (elevator.getCurrentDirection() == ElevatorDirection.HANDLING_REQUEST) {
+		if (elevator.getCurrentDirection() == ElevatorStatus.HANDLING_REQUEST) {
 			System.out.print("\nElevator " + elevator.getId() + " is now ready for pickup at floor " + elevator.getCurrentFloorId() + "\n");
 		} else {
 			System.out.print("\nElevator " + elevator.getId() + " is now free at floor " + elevator.getCurrentFloorId() +"\n");

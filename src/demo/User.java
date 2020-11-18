@@ -1,10 +1,11 @@
 package demo;
 
 import elevator.Elevator;
-import elevator.ElevatorDirection;
+import elevator.ElevatorStatus;
 import elevator.ElevatorObserver;
 import userInteraction.UserInteraction;
 import userInteraction.UserPriority;
+
 
 public class User implements ElevatorObserver {
 	private boolean alive = true;
@@ -27,7 +28,7 @@ public class User implements ElevatorObserver {
 
 	@Override
 	public synchronized void elevatorDidFinishTask(Elevator elevator) {
-		if (elevator.getCurrentFloorId() == pickUpFloor && elevator.getCurrentDirection() == ElevatorDirection.HANDLING_REQUEST &&alive) {
+		if (elevator.getCurrentFloorId() == pickUpFloor && elevator.getCurrentDirection() == ElevatorStatus.HANDLING_REQUEST &&alive) {
 			requestDestination(elevator);
 			alive = false;
 		}

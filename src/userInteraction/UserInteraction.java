@@ -1,11 +1,16 @@
 package userInteraction;
 
-import elevator.ElevatorDirection;
 import elevator.Elevator;
 import elevatorManager.ElevatorManager;
 import elevatorManager.ElevatorManagerDestinationRequest;
 import elevatorManager.ElevatorManagerRequest;
 
+/*
+ * STATUS: In Progress/Used in our system
+ * This class is used to represent user interactions in our system. 
+ * Currently, there are two types of user requests: pickup and destination.
+ * It communicates with the ElevatorManager to handle the requests.
+ */
 public class UserInteraction {
 	ElevatorManager elevatorManager;
 	

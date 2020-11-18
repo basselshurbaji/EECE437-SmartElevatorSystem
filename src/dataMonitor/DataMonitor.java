@@ -2,6 +2,12 @@ package dataMonitor;
 
 import java.util.HashMap;
 
+/*
+ * STATUS: Incomplete/Not used in current implementation
+ * This component is responsible for logging all events related to elevator traffic.
+ */
+
+//TODO: Rather than printing our logs to console, we'd like to save them in a persistent file.
 public class DataMonitor {
 	private HashMap<Integer, ElevatorEvent> events;
 	
