@@ -2,6 +2,10 @@ package dataMonitor;
 
 import java.util.Date;
 
+/*
+ * STATUS: Complete//Not used in current implementation
+ * This class defines the structure of events logged by the DataMonitor.
+ */
 public class ElevatorEvent {
 	private int id;
 	private int elevatorId;
