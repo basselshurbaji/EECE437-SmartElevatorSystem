@@ -27,7 +27,7 @@ public class User implements ElevatorObserver {
 	}
 
 	@Override
-	public synchronized void elevatorDidFinishTask(Elevator elevator) {
+	public void elevatorDidFinishTask(Elevator elevator) {
 		if (elevator.getCurrentFloorId() == pickUpFloor && elevator.getCurrentDirection() == ElevatorStatus.HANDLING_REQUEST &&alive) {
 			requestDestination(elevator);
 			alive = false;

@@ -38,7 +38,7 @@ public class Demo {
 		
 		User user1 = new User(0,2);
 		User user2 = new User(0,2);
-		User user3 = new User(3,0);
+		User user3 = new User(3,1);
 		
 		E0.addObserver(user1);
 		E0.addObserver(user2);
@@ -48,11 +48,11 @@ public class Demo {
 		E1.addObserver(user3);
 		
 		user1.requestPickUp();
-		delay(500);
+		delay(50);
 		user2.requestPickUp();
-		delay(500);
+		delay(50);
 		user3.requestPickUp();
-		delay(3000);
+		delay(50);
 		UI.fireEmergencyRequest();
 	}
 	
