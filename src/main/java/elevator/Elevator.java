@@ -36,11 +36,11 @@ public class Elevator {
 		this.isOutOfService=isOutOfService;
 	}
 	
-	public synchronized void addObserver(ElevatorObserver observer) {
+	public void addObserver(ElevatorObserver observer) {
 		observers.add(observer);
 	}
 	
-	public synchronized void removeObserver(ElevatorObserver observer) {
+	public void removeObserver(ElevatorObserver observer) {
 		observers.remove(observer);
 	}
 	

@@ -35,14 +35,14 @@ public class ElevatorManager implements ElevatorObserver {
 	}
 	
 	// Get Shared Singleton Instance
-	public static synchronized ElevatorManager getInstance() {
+	public static ElevatorManager getInstance() {
 		if (sharedInstance == null) {
 			sharedInstance = new ElevatorManager();
 		}
 		return sharedInstance;
 	}
 	
-	public synchronized void requestPickup(ElevatorManagerRequest request) {
+	public void requestPickup(ElevatorManagerRequest request) {
 		if(mode==ElevatorManagerMode.EMERGENCY) {
 			return;
 		}
@@ -50,12 +50,12 @@ public class ElevatorManager implements ElevatorObserver {
 		handlePickUpRequest();
 	}
 	
-	public synchronized void requestDestination(ElevatorManagerDestinationRequest request) {
+	public void requestDestination(ElevatorManagerDestinationRequest request) {
 		destinationRequests.add(request);
 		handleDestinationRequest();
 	}
 	
-	private synchronized boolean handlePickUpRequest() {
+	private boolean handlePickUpRequest() {
 		if (pickUpRequests.isEmpty())
 			return false;
 		
@@ -77,7 +77,7 @@ public class ElevatorManager implements ElevatorObserver {
 		return true;
 	}
 	
-	private synchronized boolean handleDestinationRequest() {
+	private boolean handleDestinationRequest() {
 		ElevatorManagerDestinationRequest request = destinationRequests.element();
 		int floorId = request.floorId;
 		Elevator elevator = request.elevator;
@@ -96,6 +96,7 @@ public class ElevatorManager implements ElevatorObserver {
 		for (Elevator elevator: elevators) {
 			elevator.stopElevator();
 		}
+		
 		for(Elevator elevator: elevators) {
 			elevator.goToFloor(0, ElevatorRequestType.DESTINATION);
 		}
