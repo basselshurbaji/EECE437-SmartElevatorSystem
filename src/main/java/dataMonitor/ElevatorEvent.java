@@ -2,11 +2,15 @@ package dataMonitor;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /*
  * STATUS: Complete//Not used in current implementation
  * This class defines the structure of events logged by the DataMonitor.
  */
-public class ElevatorEvent {
+public class ElevatorEvent implements Loggable {
+	static 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	private int id;
 	private int elevatorId;
 	private int sourceFloor;
@@ -23,29 +27,8 @@ public class ElevatorEvent {
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
-
-	// Getters
-	public int getId() {
-		return id;
+	
+	public String toLogData() {   
+	    return gson.toJson(this);
 	}
-
-	public int getElevatorId() {
-		return elevatorId;
-	}
-
-	public int getSourceFloor() {
-		return sourceFloor;
-	}
-
-	public int getDestiniationFloor() {
-		return destiniationFloor;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}	
 }

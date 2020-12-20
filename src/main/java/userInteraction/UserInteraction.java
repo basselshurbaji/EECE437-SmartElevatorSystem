@@ -37,21 +37,16 @@ public class UserInteraction {
 		elevatorManager.requestDestination(new ElevatorManagerDestinationRequest(floorId, priority, elevator));
 	}
 	
-	public void stopElevator(int elevatorId) {
-		//TODO
+	public void stopElevator(Elevator elevator) {
+		elevatorManager.stopElevator(elevator);
 	}
 	
-	public void setAlarmAlert(int elevatorId) {
-		//TODO
+	public void resetMode() {
+		elevatorManager.resetMode();
 	}
 	
-	
-	public void closeDoor(int elevatorId) {
-		//TODO
-	}
-	
-	public void openDoor(int elevatorId) {
-		//TODO
+	public void fireEmergencyRequest() {
+		elevatorManager.handleEmergency();
 	}
 	
 }

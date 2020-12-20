@@ -1,7 +1,9 @@
 package elevatorManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import elevator.Elevator;
 import elevator.ElevatorStatus;
@@ -18,10 +20,9 @@ import java.lang.Math;
 public class ElevatorManager implements ElevatorObserver {
 	private ArrayList<Floor> floors;
 	private ArrayList<Elevator> elevators;
-	private ElevatorManagerMode mode;//TODO
-	private ElevatorManagerStatus status;//TODO
+	private ElevatorManagerMode mode;
 	
-	private Queue<ElevatorManagerRequest> pickUpRequests = new LinkedList<>();
+	private PriorityQueue<ElevatorManagerRequest> pickUpRequests = new PriorityQueue<ElevatorManagerRequest>(Collections.reverseOrder());
 	private Queue<ElevatorManagerDestinationRequest> destinationRequests = new LinkedList<>();
 	private static ElevatorManager sharedInstance;
 	
@@ -30,7 +31,6 @@ public class ElevatorManager implements ElevatorObserver {
 		this.floors = new ArrayList<>();
 		this.elevators = new ArrayList<>();
 		this.mode = ElevatorManagerMode.NORMAL;
-		this.status = ElevatorManagerStatus.OFF;
 		
 	}
 	
@@ -43,6 +43,9 @@ public class ElevatorManager implements ElevatorObserver {
 	}
 	
 	public synchronized void requestPickup(ElevatorManagerRequest request) {
+		if(mode==ElevatorManagerMode.EMERGENCY) {
+			return;
+		}
 		pickUpRequests.add(request);
 		handlePickUpRequest();
 	}
@@ -84,6 +87,31 @@ public class ElevatorManager implements ElevatorObserver {
 		destinationRequests.remove();
 		elevator.goToFloor(floorId, ElevatorRequestType.DESTINATION);
 		return true;
+	}
+	
+	public void handleEmergency() {
+		this.pickUpRequests.clear();
+		this.destinationRequests.clear();
+		this.mode=ElevatorManagerMode.EMERGENCY;
+		for (Elevator elevator: elevators) {
+			elevator.stopElevator();
+		}
+		for(Elevator elevator: elevators) {
+			elevator.goToFloor(0, ElevatorRequestType.DESTINATION);
+		}
+	}
+	
+	public void outOfServiceElevator(Elevator elevator) {
+		elevator.stopElevator();
+		elevator.setOutService(true);
+	}
+	
+	public void onServiceElevator(Elevator elevator) {
+		elevator.setOutService(false);
+	}
+	
+	public void stopElevator(Elevator elevator) {
+		elevator.stopElevator();
 	}
 	
 	private Elevator getNearestAvailableElevatorToFloor(int floorId) {
@@ -154,16 +182,11 @@ public class ElevatorManager implements ElevatorObserver {
 		return mode;
 	}
 
-	public void setMode(ElevatorManagerMode mode) {
-		this.mode = mode;
+	public void resetMode() {
+		this.mode = ElevatorManagerMode.NORMAL;
 	}
 
-	public ElevatorManagerStatus getStatus() {
-		return status;
-	}
 
-	public void setStatus(ElevatorManagerStatus status) {
-		this.status = status;
-	}
 	
+
 }

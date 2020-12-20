@@ -14,13 +14,15 @@ public class Elevator {
 	private int currentFloorId;
 	private ElevatorDoorStatus doorStatus;
 	private ElevatorStatus currentDirection;
+	public boolean shouldBeStopped;
+	private boolean isOutOfService;
 	private List<ElevatorObserver> observers = new ArrayList<>();
 	
 	//Constructor
 	public Elevator(int id, int maximumLoad, int currentFloorId) {
 		this.id = id;
 		this.currentFloorId = currentFloorId;
-		
+		this.isOutOfService=false;
 		this.doorStatus = ElevatorDoorStatus.CLOSED;
 		this.currentDirection = ElevatorStatus.STATIONARY;
 	}
@@ -28,6 +30,10 @@ public class Elevator {
 	// Methods
 	public boolean isBusy() {
 		return (currentDirection == ElevatorStatus.DOWN) || (currentDirection == ElevatorStatus.UP) || (currentDirection == ElevatorStatus.HANDLING_REQUEST);
+	}
+	
+	public void setOutService(boolean isOutOfService) {
+		this.isOutOfService=isOutOfService;
 	}
 	
 	public synchronized void addObserver(ElevatorObserver observer) {
@@ -45,6 +51,12 @@ public class Elevator {
 	}
 	
 	public void goToFloor(int floorId, ElevatorRequestType type) {
+		
+		if(this.isOutOfService) {
+			System.out.print("\nElevator " + id + " is out of service \n");
+			return;
+		}
+		
 		if(currentFloorId == floorId) {
 			System.out.print("\nElevator " + id + " is already at floor " + floorId + "\n");
 			if (type == ElevatorRequestType.PICKUP) {
@@ -60,6 +72,12 @@ public class Elevator {
 	}
 	
 
+	public void stopElevator() {
+		if(this.currentDirection!=ElevatorStatus.STATIONARY) {
+			this.shouldBeStopped=true;
+		}
+	}
+	
 	//Getters & Setters
 	public int getCurrentFloorId() {
 		return currentFloorId;
@@ -106,10 +124,12 @@ class ElevatorTask extends Thread {
 			if (floorId >= elevator.getCurrentFloorId()) {
 				elevator.setCurrentDirection(ElevatorStatus.UP);
 				System.out.print("\nElevator " + elevator.getId() + " is going up from floor " + elevator.getCurrentFloorId() + " to floor " + floorId + "\n");
-				while(floorId > elevator.getCurrentFloorId()) {
+				while(floorId > elevator.getCurrentFloorId() && !elevator.shouldBeStopped) {
 					Thread.sleep(1000);
 					elevator.setCurrentFloorId(elevator.getCurrentFloorId() + 1);
 				}
+				
+				elevator.shouldBeStopped=false;
 				
 				if (type == ElevatorRequestType.PICKUP) {
 					elevator.setCurrentDirection(ElevatorStatus.HANDLING_REQUEST);
@@ -121,10 +141,13 @@ class ElevatorTask extends Thread {
 			else {
 				elevator.setCurrentDirection(ElevatorStatus.DOWN);
 				System.out.print("\nElevator " + elevator.getId() + " is going down from floor " + elevator.getCurrentFloorId() + " to floor " + floorId + "\n");
-				while(floorId < elevator.getCurrentFloorId()) {
+				while(floorId < elevator.getCurrentFloorId() && !elevator.shouldBeStopped) {
 					Thread.sleep(1000);
 					elevator.setCurrentFloorId(elevator.getCurrentFloorId() - 1);
 				}
+				
+				elevator.shouldBeStopped=false;
+				
 				if (type == ElevatorRequestType.PICKUP) {
 					elevator.setCurrentDirection(ElevatorStatus.HANDLING_REQUEST);
 				} else {
