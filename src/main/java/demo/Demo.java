@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import elevatorManager.ElevatorManager;
 import floor.Floor;
 import floor.FloorPriority;
+import userInteraction.UserInteraction;
 import elevator.Elevator;
 
 public class Demo {
 
 	public static void main(String[] args) {
+		UserInteraction UI=UserInteraction.getInstance();
 		//Getting ElevatorManager Singleton
 		ElevatorManager EM = ElevatorManager.getInstance();
 		
@@ -50,6 +52,8 @@ public class Demo {
 		user2.requestPickUp();
 		delay(500);
 		user3.requestPickUp();
+		delay(3000);
+		UI.fireEmergencyRequest();
 	}
 	
 	private static void delay(int delay) {
