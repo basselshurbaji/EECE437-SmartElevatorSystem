@@ -29,8 +29,6 @@ public class IntegratedDemo {
 		//Initializing Floors
 		ArrayList<Floor> floors = DO.getFloorArrayList();
 		
-
-		
 		//Passing the elevators and floors to the elevator manager
 		EM.setElevators(elevators);
 		EM.setFloors(floors);
@@ -44,9 +42,8 @@ public class IntegratedDemo {
 		
 		
 		for(int i=0; i<userRequestArrayList.size(); i++) {
-			users.add(new User(userRequestArrayList.get(i).getPickUpFloor(), userRequestArrayList.get(i).getDestinationFloor()));
+			users.add(new User(userRequestArrayList.get(i).getPickUpFloor(), userRequestArrayList.get(i).getDestinationFloor(), userRequestArrayList.get(i).getPriority()));
 		}
-		
 
 		
 		//Adding users as elevator observers
@@ -55,9 +52,6 @@ public class IntegratedDemo {
 				elevators.get(i).addObserver(users.get(j));
 			}
 		}
-
-		
-		
 		
 		for(int i=0; i<120; i++) {
 			
@@ -99,8 +93,6 @@ public class IntegratedDemo {
 			
 			System.out.println("\n");
 		}
-		
-
 		
 	}
 	
