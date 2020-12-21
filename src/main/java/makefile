@@ -1,5 +1,4 @@
 all: GUI dataMonitor demo elevator elevatorManager floor userInteraction
-clean:
 GUI:
 	javac GUI/DataObject.java GUI/GUI.java GUI/GsonHandler.java GUI/Request.java GUI/userRequest.java
 dataMonitor:
