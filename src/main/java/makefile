@@ -1,15 +1,15 @@
 all: GUI dataMonitor demo elevator elevatorManager floor userInteraction
 GUI:
-	javac GUI/DataObject.java GUI/GUI.java GUI/GsonHandler.java GUI/Request.java GUI/userRequest.java
+	javac GUI/*.java
 dataMonitor:
-	javac dataMonitor/DataMonitor.java dataMonitor/ElevatorEvent.java dataMonitor/Loggable.java
+	javac dataMonitor/*.java
 demo:
-	javac demo/IntegratedDemo.java demo/User.java
+	javac demo/*.java
 elevator:
-	javac elevator/Elevator.java elevator/ElevatorDoorStatus.java elevator/ElevatorObserver.java elevator/EleveatorRequestType.java elevator/ElevatorStatus.java
+	javac elevator/*.java
 elevatorManager:
-	javac elevatorManager/ElevatorManager.java elevatorManager/ElevatorManagerDestinationRequest.java elevatorManager/ElevatorManagerMode.java elevatorManager/ElevatorManagerRequest.java
+	javac elevatorManager/*.java
 floor:
-	javac floor/Floor.java  floor/FloorPriority.java
+	javac floor/*.java
 userInteraction:
-	javac userInteraction/UserInteraction.java userInteraction/UserPriority.java
+	javac userInteraction/*.java
