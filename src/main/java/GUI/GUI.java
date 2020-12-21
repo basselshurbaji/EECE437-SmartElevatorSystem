@@ -156,7 +156,7 @@ public class GUI extends JFrame {
 		}
 		
 
-		sep = new JSeparator(JSeparator.HORIZONTAL);
+		sep = new JSparator(JSeparator.HORIZONTAL);
 		sep.setSize(new Dimension(1,5));
 
 		label = new JLabel("Building Initialization", SwingConstants.CENTER);
