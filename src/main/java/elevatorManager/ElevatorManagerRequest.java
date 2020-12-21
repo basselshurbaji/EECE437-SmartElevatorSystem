@@ -3,9 +3,9 @@ package elevatorManager;
 import floor.*;
 import userInteraction.UserPriority;
 
-/*
- * STATUS: In Progress/Used in current implementation
- * This class represents the requests which can be handled by the ElevatorManager.
+
+/**
+ * This class represents the requests requested by users which can be handled by the ElevatorManager.
  */
 public class ElevatorManagerRequest implements Comparable<ElevatorManagerRequest>  {	
 	int floorId;
@@ -13,6 +13,11 @@ public class ElevatorManagerRequest implements Comparable<ElevatorManagerRequest
 	UserPriority userPriority;
 	static ElevatorManager manager=ElevatorManager.getInstance();
 	
+	/**
+	 * Constructor of ElevatorManagerRequest
+	 * @param floorId represents the floor id of interest
+	 * @param userPriority represents the priority of the user that is requesting. (NORMAL, HIGH)
+	 */
 	public ElevatorManagerRequest(int floorId, UserPriority userPriority) {
 		this.floorId=floorId;
 		this.userPriority = userPriority;

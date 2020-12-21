@@ -19,10 +19,17 @@ import java.util.Date;
 import java.lang.Math;
 import dataMonitor.*;
 /*
- * STATUS: In Progress/Used in current implementation
  * This component is responsible for handling all requests by the UserInteraction component. 
  * Currently, there are two types of requests: pickUprequest, destination request.
  * Each type of request has a queue. The requests are currently handled FIFO.
+ */
+
+/**
+ * This component is responsible for handling all requests by the UserInteraction component. 
+ * It has a queues for handling the requests by the UserInteraction component.
+ * Requests are handled while taking into consideration the priorities specified.
+ * This component is also responsible for handling emergencies.
+ *
  */
 public class ElevatorManager implements ElevatorObserver {
 	private ArrayList<Floor> floors;
@@ -33,7 +40,10 @@ public class ElevatorManager implements ElevatorObserver {
 	private Queue<ElevatorManagerDestinationRequest> destinationRequests = new LinkedList<>();
 	private static ElevatorManager sharedInstance;
 	
-	// Private Constructor (Singleton)
+	/**
+	 * Private constructor of emergency manager.
+	 * It initiates an empty array of floors, elevators, and sets mode to normal.
+	 */
 	private ElevatorManager() {
 		this.floors = new ArrayList<>();
 		this.elevators = new ArrayList<>();
