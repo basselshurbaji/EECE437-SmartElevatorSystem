@@ -14,7 +14,7 @@ public class ElevatorManagerDestinationRequest extends ElevatorManagerRequest {
 	/**
 	 * Constructor of ElevatorManagerDestinationRequest
 	 * @param floorId represents the floor id of interest
-	 * @param userPriority represents the priority of the user that is requesting. (NORMAL, HIGH)
+	 * @param priority represents the priority of the user that is requesting. (NORMAL, HIGH)
 	 * @param elevator specifies the elevator specified for the desired destination floor
 	 */
 	public ElevatorManagerDestinationRequest(int floorId, UserPriority priority, Elevator elevator) {
