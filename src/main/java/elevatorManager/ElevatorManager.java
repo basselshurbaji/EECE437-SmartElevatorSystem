@@ -90,25 +90,17 @@ public class ElevatorManager implements ElevatorObserver {
 	}
 	
 	public void handleEmergency() {
+		System.out.println("EMERGENCY MODE INITIATED");
 		this.pickUpRequests.clear();
 		this.destinationRequests.clear();
 		this.mode=ElevatorManagerMode.EMERGENCY;
 		for (Elevator elevator: elevators) {
 			elevator.stopElevator();
 		}
-		
+		delay(1000);
 		for(Elevator elevator: elevators) {
 			elevator.goToFloor(0, ElevatorRequestType.DESTINATION);
 		}
-	}
-	
-	public void outOfServiceElevator(Elevator elevator) {
-		elevator.stopElevator();
-		elevator.setOutService(true);
-	}
-	
-	public void onServiceElevator(Elevator elevator) {
-		elevator.setOutService(false);
 	}
 	
 	public void stopElevator(Elevator elevator) {
@@ -186,8 +178,13 @@ public class ElevatorManager implements ElevatorObserver {
 	public void resetMode() {
 		this.mode = ElevatorManagerMode.NORMAL;
 	}
-
-
 	
+	private static void delay(int delay) {
+		try {
+			Thread.sleep(delay);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
