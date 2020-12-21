@@ -1,4 +1,4 @@
 [{"id":0,"priority":"LOW"},{"id":1,"priority":"LOW"},{"id":2,"priority":"MEDIUM"},{"id":3,"priority":"HIGH"}]
-[{"id":0,"currentFloorId":0,"doorStatus":"CLOSED","currentDirection":"STATIONARY","shouldBeStopped":false,"isOutOfService":false,"observers":[]},{"id":1,"currentFloorId":2,"doorStatus":"CLOSED","currentDirection":"STATIONARY","shouldBeStopped":false,"isOutOfService":false,"observers":[]}]
-[{"type":"e","time":12},{"type":"s","time":14}]
-[{"id":0,"pickUpFloor":0,"destFloor":3,"priority":"NORMAL","type":"u","time":10},{"id":1,"pickUpFloor":2,"destFloor":0,"priority":"HIGH","type":"u","time":5}]
+[{"id":0,"currentFloorId":1,"doorStatus":"CLOSED","currentDirection":"STATIONARY","shouldBeStopped":false,"isOutOfService":false,"observers":[]},{"id":1,"currentFloorId":3,"doorStatus":"CLOSED","currentDirection":"STATIONARY","shouldBeStopped":false,"isOutOfService":false,"observers":[]}]
+[{"type":"e","time":10},{"type":"s","time":12}]
+[{"id":0,"pickUpFloor":0,"destFloor":3,"priority":"HIGH","type":"u","time":0},{"id":1,"pickUpFloor":2,"destFloor":0,"priority":"NORMAL","type":"u","time":2}]
