@@ -5,6 +5,7 @@ import elevatorManager.ElevatorManager;
 import floor.Floor;
 import floor.FloorPriority;
 import userInteraction.UserInteraction;
+import userInteraction.UserPriority;
 import elevator.Elevator;
 
 public class Demo {
@@ -17,9 +18,9 @@ public class Demo {
 		//Initializing  Elevators
 		ArrayList<Elevator> elevators = new ArrayList<Elevator>();
 		Elevator E0 = new Elevator(0,100,0);
-		Elevator E1 = new Elevator(1,100,0);
+//		Elevator E1 = new Elevator(1,100,0);
 		elevators.add(E0);	
-		elevators.add(E1);
+//		elevators.add(E1);
 		
 		//Initializing Floors
 		ArrayList<Floor> floors = new ArrayList<Floor>();
@@ -36,24 +37,24 @@ public class Demo {
 		EM.setElevators(elevators);
 		EM.setFloors(floors);
 		
-		User user1 = new User(0,2);
-		User user2 = new User(0,2);
-		User user3 = new User(3,1);
+		User user1 = new User(0,2, UserPriority.NORMAL);
+		User user2 = new User(0,2, UserPriority.NORMAL);
+		User user3 = new User(3,1, UserPriority.HIGH);
 		
 		E0.addObserver(user1);
 		E0.addObserver(user2);
 		E0.addObserver(user3);
-		E1.addObserver(user1);
-		E1.addObserver(user2);
-		E1.addObserver(user3);
+//		E1.addObserver(user1);
+//		E1.addObserver(user2);
+//		E1.addObserver(user3);
 		
 		user1.requestPickUp();
-		delay(50);
+		delay(100);
 		user2.requestPickUp();
-		delay(50);
+		delay(100);
 		user3.requestPickUp();
-		delay(50);
-		UI.fireEmergencyRequest();
+//		delay(50);
+//		UI.fireEmergencyRequest();
 	}
 	
 	private static void delay(int delay) {

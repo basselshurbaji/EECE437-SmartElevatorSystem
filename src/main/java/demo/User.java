@@ -11,19 +11,21 @@ public class User implements ElevatorObserver {
 	private boolean alive = true;
 	private int pickUpFloor;
 	private int destinationFloor;
+	private UserPriority priority;
 	static UserInteraction UI = UserInteraction.getInstance();
 	
-	public User(int pickUpFloor, int destinationFloor) {
+	public User(int pickUpFloor, int destinationFloor, UserPriority priority) {
 		this.pickUpFloor = pickUpFloor;
 		this.destinationFloor = destinationFloor;
+		this.priority = priority;
 	}
 	
 	public void requestPickUp() {
-		UI.requestElevatorPickUp(pickUpFloor, UserPriority.NORMAL);
+		UI.requestElevatorPickUp(pickUpFloor, priority);
 	}
 	
 	public void requestDestination(Elevator elevator) {
-		UI.requestElevatorToDestination(destinationFloor, UserPriority.NORMAL, elevator);
+		UI.requestElevatorToDestination(destinationFloor, priority, elevator);
 	}
 
 	@Override
