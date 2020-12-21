@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/basselshurbaji/EECE437-SmartElevatorSystem.svg?branch=master)](https://travis-ci.com/basselshurbaji/EECE437-SmartElevatorSystem)
 ### Team Members
 
 Bassel Shurbaji - Christopher Farah - Hadi Sandid - Justin El Halabi - Sarah Annan
