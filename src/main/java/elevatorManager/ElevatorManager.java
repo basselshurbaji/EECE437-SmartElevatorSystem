@@ -18,11 +18,14 @@ import java.util.Date;
 
 import java.lang.Math;
 import dataMonitor.*;
-/*
- * STATUS: In Progress/Used in current implementation
+
+
+/**
  * This component is responsible for handling all requests by the UserInteraction component. 
- * Currently, there are two types of requests: pickUprequest, destination request.
- * Each type of request has a queue. The requests are currently handled FIFO.
+ * It has a queues for handling the requests by the UserInteraction component.
+ * Requests are handled while taking into consideration the priorities specified.
+ * This component is also responsible for handling emergencies.
+ *
  */
 public class ElevatorManager implements ElevatorObserver {
 	private ArrayList<Floor> floors;
@@ -33,7 +36,10 @@ public class ElevatorManager implements ElevatorObserver {
 	private Queue<ElevatorManagerDestinationRequest> destinationRequests = new LinkedList<>();
 	private static ElevatorManager sharedInstance;
 	
-	// Private Constructor (Singleton)
+	/**
+	 * Private constructor of emergency manager.
+	 * It initiates an empty array of floors, elevators, and sets mode to normal.
+	 */
 	private ElevatorManager() {
 		this.floors = new ArrayList<>();
 		this.elevators = new ArrayList<>();
@@ -41,7 +47,9 @@ public class ElevatorManager implements ElevatorObserver {
 		
 	}
 	
-	// Get Shared Singleton Instance
+	/**
+	 * @return returns ElevatorManager singleton shared instance.
+	 */
 	public static ElevatorManager getInstance() {
 		if (sharedInstance == null) {
 			sharedInstance = new ElevatorManager();
@@ -49,6 +57,10 @@ public class ElevatorManager implements ElevatorObserver {
 		return sharedInstance;
 	}
 	
+	/**
+	 * Adds the pick up request passed to the queue to be handled.
+	 * @param request ElevatorManagerRequest passed to be handled.
+	 */
 	public void requestPickup(ElevatorManagerRequest request) {
 		if(mode==ElevatorManagerMode.EMERGENCY) {
 			return;
@@ -57,11 +69,21 @@ public class ElevatorManager implements ElevatorObserver {
 		handlePickUpRequest();
 	}
 	
+	/**
+	 * Adds the destination request passed to the queue to be handled.
+	 * @param request ElevatorManagerRequest passed to be handled.
+	 */
 	public void requestDestination(ElevatorManagerDestinationRequest request) {
 		destinationRequests.add(request);
 		handleDestinationRequest();
 	}
 	
+	/**
+	 * This method handles the top request in the priority queue.
+	 * It checks if there are available elevators.
+	 * If there is an elevator elevator, it is assigned to the task.
+	 * @return true if an elevator is assigned to task, and false otherwise.
+	 */
 	private boolean handlePickUpRequest() {
 		if (pickUpRequests.isEmpty())
 			return false;
@@ -84,6 +106,10 @@ public class ElevatorManager implements ElevatorObserver {
 		return true;
 	}
 	
+	/**
+	 * This method handles the top destination request in the queue.
+	 * @return true if an elevator is assigned to task, and false otherwise.
+	 */
 	private boolean handleDestinationRequest() {
 		ElevatorManagerDestinationRequest request = destinationRequests.element();
 		int floorId = request.floorId;
@@ -98,6 +124,10 @@ public class ElevatorManager implements ElevatorObserver {
 		return true;
 	}
 	
+	/**
+	 * This method handles the emergency properly.
+	 * It stops all elevators at nearest floor, and returns them to the ground floor.
+	 */
 	public void handleEmergency() {
 		System.out.println("EMERGENCY MODE INITIATED");
 		DataMonitor.getInstance().log(new EmergencyEvent("EMERGENCY MODE INITIATED",formatter.format(new Date())));
@@ -113,10 +143,19 @@ public class ElevatorManager implements ElevatorObserver {
 		}
 	}
 	
+	/**
+	 * This method stops the passed elevator at the nearest floor.
+	 * @param elevator Elevator passed to be stopped.
+	 */
 	public void stopElevator(Elevator elevator) {
 		elevator.stopElevator();
 	}
 	
+	/**
+	 * This method finds the nearest free elevator to the passed floor. 
+	 * @param floorId id of floor of interest
+	 * @return Elevator that is the avilable and nearest to floorId 
+	 */
 	private Elevator getNearestAvailableElevatorToFloor(int floorId) {
 		Elevator nearestElevator = null;
 		int minimumDistance = Math.abs(floorId - elevators.get(0).getCurrentFloorId());
@@ -129,6 +168,10 @@ public class ElevatorManager implements ElevatorObserver {
 		return nearestElevator;
 	}
 	
+	/**
+	 * Validates if there are elevators array is not empty.
+	 * @return false if elevators array empty, true otherwise
+	 */
 	private boolean validateElevators() {
 		if (elevators.size() == 0) {
 			System.out.println("\nERROR: No Elevators\n");
@@ -137,6 +180,11 @@ public class ElevatorManager implements ElevatorObserver {
 		return true;
 	}
 	
+	/**
+	 * Validates if floors are not empty and if the passed floorId is within the floors listed.
+	 * @param floorId floorId to be checked
+	 * @return true if floorId is within the listed floors, false otherwise.
+	 */
 	private boolean validateFloors(int floorId) {
 		if (floors.size() == 0) {
 			System.out.println("\nERROR: No Floors\n");
@@ -180,11 +228,17 @@ public class ElevatorManager implements ElevatorObserver {
 			elev.addObserver(this);
 		}
 	}
-
+	
+	/**
+	 * @return returns the ElevatorManagerMode (Normal, Emergency)
+	 */
 	public ElevatorManagerMode getMode() {
 		return mode;
 	}
 
+	/**
+	 * Resets the mode of the manager back to normal.
+	 */
 	public void resetMode() {
 		DataMonitor.getInstance().log(new EmergencyEvent("NORMAL MODE INITIATED",formatter.format(new Date())));
 		this.mode = ElevatorManagerMode.NORMAL;
