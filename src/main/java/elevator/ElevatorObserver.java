@@ -1,10 +1,12 @@
 package elevator;
 /*
- * STATUS: In Progress/Used in current implementation
- * 
  * This is an interface for all components interested in observing elevator events.
- * More functions might be added.
+ *
  */
 public interface ElevatorObserver {
+	/**
+	 * interface function that notify when an elevator finishes a task
+	 * 
+	 */
 	public void elevatorDidFinishTask(Elevator elevator);
 }

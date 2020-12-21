@@ -11,12 +11,21 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+/**
+ * System Data Monitor
+ * This component monitor system events and append the data to log.txt
+ * 
+ */
 public class DataMonitor {
 	static DataMonitor sharedInstance;
 	FileWriter fw;
 	BufferedWriter bw;
 	PrintWriter pw;
 	
+	/**
+	 * Private constructor for DataMonitor.
+	 * @param String path
+	 */
 	private DataMonitor(String path) {
 		try {
 			this.fw = new FileWriter(path, true);
@@ -29,6 +38,10 @@ public class DataMonitor {
 		}
 	}
 	
+	/**
+	 * Public static DataMonitor singleton Instance Getter.
+	 * @return DataMonitor Instance
+	 */
 	public static DataMonitor getInstance() {
 		if(sharedInstance == null) {
 			sharedInstance = new DataMonitor("log.txt");
@@ -36,12 +49,21 @@ public class DataMonitor {
 		return sharedInstance;
 	}
 	
+	/**
+	 * function that handles data logging into file
+	 * Parameter of type T extends Loggable
+	 * @param T data
+	 */
 	public <T extends Loggable> void log(T data) {
 		pw.println(data.toLogData());
 		pw.flush();
 		System.out.println("Data Successfully appended into file");
 	}
 	
+	/**
+	 * Function that handles the closure of the Data fil
+	 * 
+	 */
 	public void close() {
 		try {
 			pw.close();
