@@ -1,0 +1,34 @@
+{
+  "elevatorId": 1,
+  "sourceFloor": 0,
+  "destiniationFloor": 2,
+  "time": "21/12/2020 19:25:44"
+}
+{
+  "elevatorId": 2,
+  "sourceFloor": 2,
+  "destiniationFloor": 0,
+  "time": "21/12/2020 19:25:53"
+}
+null
+null
+{
+  "elevatorId": 1,
+  "sourceFloor": 0,
+  "destiniationFloor": 2,
+  "time": "21/12/2020 19:27:07"
+}
+{
+  "elevatorId": 2,
+  "sourceFloor": 2,
+  "destiniationFloor": 0,
+  "time": "21/12/2020 19:27:16"
+}
+{
+  "type": "EMERGENCY MODE INITIATED",
+  "time": "21/12/2020 19:27:17"
+}
+{
+  "type": "NORMAL MODE INITIATED",
+  "time": "21/12/2020 19:27:19"
+}

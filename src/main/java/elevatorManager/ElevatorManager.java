@@ -5,12 +5,19 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+import dataMonitor.DataMonitor;
 import elevator.Elevator;
 import elevator.ElevatorStatus;
 import elevator.ElevatorObserver;
 import elevator.ElevatorRequestType;
 import floor.Floor;
+import userInteraction.UserPriority;
+import java.text.SimpleDateFormat;  
+import java.util.Date;
+
 import java.lang.Math;
+import dataMonitor.*;
 /*
  * STATUS: In Progress/Used in current implementation
  * This component is responsible for handling all requests by the UserInteraction component. 
@@ -21,7 +28,7 @@ public class ElevatorManager implements ElevatorObserver {
 	private ArrayList<Floor> floors;
 	private ArrayList<Elevator> elevators;
 	private ElevatorManagerMode mode;
-	
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
 	private PriorityQueue<ElevatorManagerRequest> pickUpRequests = new PriorityQueue<ElevatorManagerRequest>(Collections.reverseOrder());
 	private Queue<ElevatorManagerDestinationRequest> destinationRequests = new LinkedList<>();
 	private static ElevatorManager sharedInstance;
@@ -85,12 +92,15 @@ public class ElevatorManager implements ElevatorObserver {
 			return false;
 		
 		destinationRequests.remove();
+		DataMonitor.getInstance().log(new ElevatorEvent(elevator.getId(), elevator.getCurrentFloorId(), floorId, formatter.format(new Date()),  request.userPriority));
 		elevator.goToFloor(floorId, ElevatorRequestType.DESTINATION);
+		//int elevatorId, int sourceFloor, int destiniationFloor, String time, UserPriority priority
 		return true;
 	}
 	
 	public void handleEmergency() {
 		System.out.println("EMERGENCY MODE INITIATED");
+		DataMonitor.getInstance().log(new EmergencyEvent("EMERGENCY MODE INITIATED",formatter.format(new Date())));
 		this.pickUpRequests.clear();
 		this.destinationRequests.clear();
 		this.mode=ElevatorManagerMode.EMERGENCY;
@@ -176,6 +186,7 @@ public class ElevatorManager implements ElevatorObserver {
 	}
 
 	public void resetMode() {
+		DataMonitor.getInstance().log(new EmergencyEvent("NORMAL MODE INITIATED",formatter.format(new Date())));
 		this.mode = ElevatorManagerMode.NORMAL;
 	}
 	

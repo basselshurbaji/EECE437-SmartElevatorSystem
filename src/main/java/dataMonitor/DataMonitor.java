@@ -11,12 +11,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-public class DataMonitor<T extends Loggable> {
+public class DataMonitor {
+	static DataMonitor sharedInstance;
 	FileWriter fw;
 	BufferedWriter bw;
 	PrintWriter pw;
 	
-	public DataMonitor(String path) {
+	private DataMonitor(String path) {
 		try {
 			this.fw = new FileWriter(path, true);
 			this.bw = new BufferedWriter(fw);
@@ -28,7 +29,14 @@ public class DataMonitor<T extends Loggable> {
 		}
 	}
 	
-	public void log(T data) {
+	public static DataMonitor getInstance() {
+		if(sharedInstance == null) {
+			sharedInstance = new DataMonitor("log.txt");
+		}
+		return sharedInstance;
+	}
+	
+	public <T extends Loggable> void log(T data) {
 		pw.println(data.toLogData());
 		pw.flush();
 		System.out.println("Data Successfully appended into file");

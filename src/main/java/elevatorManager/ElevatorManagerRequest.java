@@ -10,10 +10,12 @@ import userInteraction.UserPriority;
 public class ElevatorManagerRequest implements Comparable<ElevatorManagerRequest>  {	
 	int floorId;
 	int priority;
+	UserPriority userPriority;
 	static ElevatorManager manager=ElevatorManager.getInstance();
 	
 	public ElevatorManagerRequest(int floorId, UserPriority userPriority) {
 		this.floorId=floorId;
+		this.userPriority = userPriority;
 		Floor floor=manager.getFloors().get(floorId);
 		if(userPriority==UserPriority.HIGH) {
 			this.priority=3;
