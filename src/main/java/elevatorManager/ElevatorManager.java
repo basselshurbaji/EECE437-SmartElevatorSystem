@@ -28,12 +28,33 @@ import dataMonitor.*;
  *
  */
 public class ElevatorManager implements ElevatorObserver {
+	/**
+	 * ArrayList of floors
+	 */
 	private ArrayList<Floor> floors;
+	/**
+	 * ArrayList of elevators
+	 */
 	private ArrayList<Elevator> elevators;
+	/**
+	 * Mode of ElevatorManager
+	 */
 	private ElevatorManagerMode mode;
+	/**
+	 * Date Formatter
+	 */
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	/**
+	 * Priority Queue for the Elevator manager requests
+	 */
 	private PriorityQueue<ElevatorManagerRequest> pickUpRequests = new PriorityQueue<ElevatorManagerRequest>(Collections.reverseOrder());
+	/**
+	 * Queue for the Elevator manager destination requests
+	 */
 	private Queue<ElevatorManagerDestinationRequest> destinationRequests = new LinkedList<>();
+	/**
+	 * Shared Instance of the Elevator Manager
+	 */
 	private static ElevatorManager sharedInstance;
 	
 	/**
@@ -48,6 +69,7 @@ public class ElevatorManager implements ElevatorObserver {
 	}
 	
 	/**
+	 * Getter function for the ElevatorManager's singleton shared instance
 	 * @return returns ElevatorManager singleton shared instance.
 	 */
 	public static ElevatorManager getInstance() {
@@ -199,6 +221,11 @@ public class ElevatorManager implements ElevatorObserver {
 		return true;
 	}
 	
+	/**
+	 * Check if elevator instance has finished its assigned task
+	 * @param elevator Elevator instance to check
+	 */
+	
 	@Override
 	public void elevatorDidFinishTask(Elevator elevator) {
 		if (elevator.getCurrentDirection() == ElevatorStatus.HANDLING_REQUEST) {
@@ -209,19 +236,34 @@ public class ElevatorManager implements ElevatorObserver {
 		handlePickUpRequest();
 	}	
 
-	//Getters & Setters
+	/**
+	 * Getter function for the ElevatorManager's assigned floors
+	 * @return returns the ElevatorManager's assigned floors
+	 */
 	public ArrayList<Floor> getFloors() {
 		return floors;
 	}
 
+	/**
+	 * Setter function allowing to assign a list of floors to the ElevatorManager
+	 * @param floors ArrayList of floors
+	 */
 	public void setFloors(ArrayList<Floor> floors) {
 		this.floors = floors;
 	}
 
+	/**
+	 * Getter function for the ElevatorManager's Elevators
+	 * @return returns the ElevatorManager's assigned elevators
+	 */
 	public ArrayList<Elevator> getElevators() {
 		return elevators;
 	}
 
+	/**
+	 * Setter function allowing to assign a list of elevators to the ElevatorManager
+	 * @param elevators ArrayList of elevators
+	 */
 	public void setElevators(ArrayList<Elevator> elevators) {
 		this.elevators = elevators;
 		for(Elevator elev: elevators) {
@@ -230,6 +272,7 @@ public class ElevatorManager implements ElevatorObserver {
 	}
 	
 	/**
+	 * Getter function for the ElevatorManager's mode
 	 * @return returns the ElevatorManagerMode (Normal, Emergency)
 	 */
 	public ElevatorManagerMode getMode() {
@@ -244,6 +287,10 @@ public class ElevatorManager implements ElevatorObserver {
 		this.mode = ElevatorManagerMode.NORMAL;
 	}
 	
+	/**
+	 * Delay Function
+	 * @param delay Time (in ms) to delay for
+	 */
 	private static void delay(int delay) {
 		try {
 			Thread.sleep(delay);

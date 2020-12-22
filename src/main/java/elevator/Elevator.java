@@ -10,19 +10,41 @@ import java.util.List;
  * 
  */
 public class Elevator {
+	/**
+	 * ID associated with the Elevator
+	 */
 	private int id;
+	/**
+	 * ID associated with the floor the Elevator is currently at
+	 */
 	private int currentFloorId;
+	/**
+	 * Status of the elevator doors (Open/Closed)
+	 */
 	private ElevatorDoorStatus doorStatus;
+	/**
+	 * Current direction the elevator is going in (Up/Down)
+	 */
 	private ElevatorStatus currentDirection;
+	/**
+	 * Boolean representing whether an elevator should be stopped or not
+	 */
 	public boolean shouldBeStopped;
+	/**
+	 * ArrayList containing all observers associated with the elevator
+	 */
 	private List<ElevatorObserver> observers = new ArrayList<>();
-	
+	/**
+	 * Boolean indicating whether the elevator is busy or not
+	 */
 	public boolean isBusy = false;
 	
 	//Constructor
 	/**
 	 * Public constructor of elevator.
-	 * @param int id, int maximumload and int currentFloorId
+	 * @param id ID associated to elevator
+	 * @param maximumLoad Maximum Load associated to elevator
+	 * @param currentFloorId ID of the current floor the elevator is at
 	 */
 	public Elevator(int id, int maximumLoad, int currentFloorId) {
 		this.id = id;
@@ -42,7 +64,7 @@ public class Elevator {
 	
 	/**
 	 * Adds the elevator to the list of observers.
-	 * @param ElevatorObserver observer
+	 * @param observer Elevator instance encapsulated in an ElevatorObserver instance
 	 */
 	public void addObserver(ElevatorObserver observer) {
 		observers.add(observer);
@@ -50,7 +72,7 @@ public class Elevator {
 	
 	/**
 	 * Removes the elevator to the list of observers.
-	 * @param ElevatorObserver observer
+	 * @param observer Elevator instance encapsulated in an ElevatorObserver instance
 	 */	
 	public void removeObserver(ElevatorObserver observer) {
 		observers.remove(observer);
@@ -68,7 +90,8 @@ public class Elevator {
 	
 	/**
 	 * Function that takes care of elevator movement, if not on the same floor it creates a task thread and run it
-	 * @param int floorId, ElevatorRequestType type
+	 * @param floorId ID associated with the floor we'd like the elevator to go to
+	 * @param type Elevator Request type
 	 */
 	public void goToFloor(int floorId, ElevatorRequestType type) {
 		isBusy = true;
@@ -109,7 +132,7 @@ public class Elevator {
 
 	/**
 	 * Current Floor ID setter.
-	 * @param int currentFloorId
+	 * @param currentFloorId ID of the floor to set
 	 */
 	public void setCurrentFloorId(int currentFloorId) {
 		this.currentFloorId = currentFloorId;
@@ -125,7 +148,7 @@ public class Elevator {
 
 	/**
 	 * Elevator Door Status Setter.
-	 * @param ElevatorDoorStatus doorStatus 
+	 * @param doorStatus Elevator Door status to set
 	 */
 	public void setDoorStatus(ElevatorDoorStatus doorStatus) {
 		this.doorStatus = doorStatus;
@@ -141,7 +164,7 @@ public class Elevator {
 
 	/**
 	 * Elevator Direction Status Setter.
-	 * @param ElevatorStatus currentDirection 
+	 * @param currentDirection Direction to orient the elevator towards when moving
 	 */
 	public void setCurrentDirection(ElevatorStatus currentDirection) {
 		this.currentDirection = currentDirection;
@@ -163,13 +186,24 @@ public class Elevator {
  * 
  */
 class ElevatorTask extends Thread {
+	/**
+	 * Elevator Class instance
+	 */
 	Elevator elevator;
+	/**
+	 * Value used to represent a floor's ID
+	 */
 	int floorId;
+	/**
+	 * Elevator Request Type
+	 */
 	ElevatorRequestType type;
 	
 	/**
 	 * Public constructor for ElevatorTask
-	 * @param Elevator elevator, int floorId, ElevatorRequestType type 
+	 * @param elevator  Elevator Class instance
+	 * @param floorId Value used to represent a floor's ID
+	 * @param type  Elevator Request Type
 	 */
 	public ElevatorTask(Elevator elevator, int floorId, ElevatorRequestType type) {
 		this.elevator = elevator;

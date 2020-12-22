@@ -1,13 +1,18 @@
 package GUI;
 
 /**
- * STATUS: In-use in our system
  * This class is used to model requests from the system/users which should be handled 
  * by the Elevator System
  */
 
 public class Request {
+	/**
+	 * Type of requests
+	 */
 	private char type;
+	/**
+	 * Time associated with request
+	 */
 	private int time;
 	
 	
@@ -38,7 +43,7 @@ public class Request {
 	
 	/**
 	 * set time associated with request
-	 * @param t
+	 * @param t Time passed
 	 */
 	public void setTime(int t) {
 		this.time = t;
@@ -46,7 +51,7 @@ public class Request {
 	
 	/**
 	 * Set type associated with request
-	 * @param T
+	 * @param T Type associated with request
 	 */
 	public void setType(char T) {
 		this.type = T;

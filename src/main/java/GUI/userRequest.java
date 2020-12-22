@@ -4,15 +4,26 @@ import GUI.Request;
 import userInteraction.UserPriority;
 
 /**
- * STATUS: In-use in our system
  * This class is used to model pick-up requests from users. It inherits from the
  * 'Request' class
  */
 
 public class userRequest extends Request{
+	/**
+	 * User ID associated with request
+	 */
 	private int id;
+	/**
+	 * Pickup floor in the request
+	 */
 	private int pickUpFloor;
+	/**
+	 * Destination floor in the request
+	 */
 	private int destFloor;
+	/**
+	 * User priority
+	 */
 	private UserPriority priority;
 	
 	

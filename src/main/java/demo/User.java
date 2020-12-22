@@ -7,15 +7,29 @@ import userInteraction.UserInteraction;
 import userInteraction.UserPriority;
 
 /**
- * STATUS: In-use in our system
  * This class is used to model users in our Elevator System
  */ 
 
 public class User implements ElevatorObserver {
+	/**
+	 * Boolean used to model if the Elevator Observer is alive
+	 */ 
 	private boolean alive = true;
+	/**
+	 * User required pickup floor
+	 */ 
 	private int pickUpFloor;
+	/**
+	 * User required destination floor
+	 */ 
 	private int destinationFloor;
+	/**
+	 * User Priority associated with user
+	 */ 
 	private UserPriority priority;
+	/**
+	 * Shared Instance of User Interaction
+	 */ 
 	static UserInteraction UI = UserInteraction.getInstance();
 	
 	/**

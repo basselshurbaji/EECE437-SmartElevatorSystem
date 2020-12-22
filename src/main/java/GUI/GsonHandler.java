@@ -14,7 +14,6 @@ import elevator.Elevator;
 import floor.Floor;
 
 /**
- * STATUS: In-use in our system
  * This class is used to read from/setup the Elevator System configuration file.
  */
 

@@ -14,17 +14,28 @@ import java.io.PrintWriter;
 /**
  * System Data Monitor
  * This component monitor system events and append the data to log.txt
- * 
  */
 public class DataMonitor {
+	/**
+	 * Shared Instance for our dataMonitor class
+	 */
 	static DataMonitor sharedInstance;
+	/**
+	 * file Writer instance
+	 */
 	FileWriter fw;
+	/**
+	 * Buffered Writer instance
+	 */
 	BufferedWriter bw;
+	/**
+	 * Print Writer instance
+	 */
 	PrintWriter pw;
 	
 	/**
 	 * Private constructor for DataMonitor.
-	 * @param String path
+	 * @param  path Path used to create our data monitor files
 	 */
 	private DataMonitor(String path) {
 		try {
@@ -52,7 +63,8 @@ public class DataMonitor {
 	/**
 	 * function that handles data logging into file
 	 * Parameter of type T extends Loggable
-	 * @param T data
+	 * @param data Class of Type T used to represent data
+	 * @param <T> Parametrization of data type
 	 */
 	public <T extends Loggable> void log(T data) {
 		pw.println(data.toLogData());

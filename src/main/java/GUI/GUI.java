@@ -35,83 +35,244 @@ import GUI.userRequest;
 import floor.FloorPriority;
 
 /**
- * STATUS: In-use in our system
  * This class defines the GUI used to generate the configuration file for the
  * Elevator System.
  */
 
 public class GUI extends JFrame {
 	
+	/**
+	 * ArrayList of Floors
+	 */
 	private ArrayList<Floor> floorArray;
+	/**
+	 * ArrayList of elevators
+	 */
 	private ArrayList<Elevator> elevatorArray;
+	/**
+	 * ArrayList of requests
+	 */
 	private ArrayList<Request> requestArray;
+	/**
+	 * ArrayList of user requests
+	 */
 	private ArrayList<userRequest> userRequestArray;
 	
+	/**
+	 * JLabel used for text in the GUI
+	 */
 	private JLabel label;
+	/**
+	 * JScrollPane used to encapsulate JLists
+	 */
 	private JScrollPane sp;
 
-	
+	/**
+	 * JComboBox for Floor priorities
+	 */
 	private JComboBox floorPriorityComboBox;
+	/**
+	 * JComboBox for user priorities
+	 */
 	private JComboBox UserPriorityComboBox;
 	
+	/**
+	 * Button to add a Floor
+	 */
 	private JButton addFloorButton;
+	/**
+	 * Button to add an Elevator
+	 */
 	private JButton addElevatorButton;
+	/**
+	 * Button to add a User Request
+	 */
 	private JButton addUserRequest;
+	/**
+	 * Button to add an emergency request
+	 */
 	private JButton addEmergencyRequest;
+	/**
+	 * Button to add a stop emergency request
+	 */
 	private JButton addStopEmergencyRequest;
+	/**
+	 * Button to generate configuration file
+	 */
 	private JButton generateConfigurationFileButton;
 	
-	private JButton incrementButton01;
-	private JButton incrementButton02;
-	private JButton incrementButton03;
-	private JButton incrementButton04;
-	private JButton incrementButton05;
-	private JButton incrementButton06;
-	private JButton incrementButton07;
+	/**
+	 * Button to increment Elevator Starting Floor
+	 */
+	private JButton incrementElevatorStartingFloor;
+	/**
+	 * Button to increment Elevator Max Capacity
+	 */
+	private JButton incrementElevatorMaxCapacity;
+	/**
+	 * Button to increment User Request Starting Floor
+	 */
+	private JButton incrementUserRequestStartingFloor;
+	/**
+	 * Button to increment User Request Destination Floor
+	 */
+	private JButton incrementUserRequestDestinationFloor;
+	/**
+	 * Button to increment User Request Time
+	 */
+	private JButton incrementUserRequestTime;
+	/**
+	 * Button to increment Emergency Request Time
+	 */
+	private JButton incrementEmergencyRequestTime;
+	/**
+	 * Button to increment Reset Request Time
+	 */
+	private JButton incrementResetRequestTime;
 	
-	private JButton decrementButton01;
-	private JButton decrementButton02;
-	private JButton decrementButton03;
-	private JButton decrementButton04;
-	private JButton decrementButton05;
-	private JButton decrementButton06;
-	private JButton decrementButton07;
+	/**
+	 * Button to decrement Elevator Starting Floor
+	 */
+	private JButton decrementElevatorStartingFloor;
+	/**
+	 * Button to decrement Elevator Max Capacity
+	 */
+	private JButton decrementElevatorMaxCapacity;
+	/**
+	 * Button to decrement User Request Starting Floor
+	 */
+	private JButton decrementUserRequestStartingFloor;
+	/**
+	 * Button to decrement User Request Destination Floor
+	 */
+	private JButton decrementUserRequestDestinationFloor;
+	/**
+	 * Button to decrement User Request Time
+	 */
+	private JButton decrementUserRequestTime;
+	/**
+	 * Button to decrement Emergency Request Time
+	 */
+	private JButton decrementEmergencyRequestTime;
+	/**
+	 * Button to decrement Reset Request Time
+	 */
+	private JButton decrementResetRequestTime;
 	
-	private JTextField valueField01;
-	private JTextField valueField02;
-	private JTextField valueField03;
-	private JTextField valueField04;
-	private JTextField valueField05;
-	private JTextField valueField06;
-	private JTextField valueField07;
+	/**
+	 * Value field for elevator Starting Floor
+	 */
+	private JTextField elevatorStartingFloorTextField;
+	/**
+	 * Value field for elevator Max Capacity
+	 */
+	private JTextField elevatorMaxCapacityTextField;
+	/**
+	 * Value field for user Request Starting Floor
+	 */
+	private JTextField userRequestStartingFloorTextField;
+	/**
+	 * Value field for user Request Destination Floor
+	 */
+	private JTextField userRequestDestinationFloorTextField;
+	/**
+	 * Value field for user Request Time
+	 */
+	private JTextField userRequestTimeTextField;
+	/**
+	 * Value field for emergency Request Time
+	 */
+	private JTextField emergencyRequestTimeTextField;
+	/**
+	 * Value field for reset Request Time
+	 */
+	private JTextField resetRequestTimeTextField;
 	
+	/**
+	 * JList of all floors
+	 */
 	private JList floorList;
+	/**
+	 * JList of all elevators
+	 */
 	private JList elevatorList;
+	/**
+	 * JList of all requests
+	 */
 	private JList requestList;
 	
+	/**
+	 * JSeparator instance
+	 */
 	private JSeparator sep;
 
+	/**
+	 * Main contentPane
+	 */
 	private JPanel contentPane;
 	
-	private int counter01 = 1;
-	private int counter02 = 100;
-	private int counter03 = 1;
-	private int counter04 = 1;
-	private int counter05 = 0;
-	private int counter06 = 0;
-	private int counter07 = 0;
+	/**
+	 * Counter for elevator Starting Floor
+	 */
+	private int elevatorStartingFloorCounter = 1;
+	/**
+	 * Counter for elevator Max Capacity
+	 */
+	private int elevatorMaxCapacityCounter = 100;
+	/**
+	 * Counter for user Request Starting
+	 */
+	private int userRequestStartingFloorCounter = 1;
+	/**
+	 * Counter for user Request Destination
+	 */
+	private int userRequestDestinationFloorCounter = 1;
+	/**
+	 * Counter for user Request Time
+	 */
+	private int userRequestTimeCounter = 0;
+	/**
+	 * Counter for emergency Request Time
+	 */
+	private int emergencyRequestTimeCounter = 0;
+	/**
+	 * Counter for reset Request Time
+	 */
+	private int resetRequestTimeCounter = 0;
 	
+	/**
+	 * ListModel for floors
+	 */
 	DefaultListModel<String> floorModel;
+	/**
+	 * ListModel for elevators
+	 */
 	DefaultListModel<String> elevatorModel;
+	/**
+	 * ListModel for requests
+	 */
 	DefaultListModel<String> requestModel;
 	
+	/**
+	 * Counter for floors
+	 */
 	private int floorCounter = 0;
+	/**
+	 * Counter for elevators
+	 */
 	private int elevatorCounter = 0;
+	/**
+	 * Counter for requests
+	 */
 	private int requestCounter = 0;
+	/**
+	 * Counter for user requests
+	 */
 	private int userRequestCounter = 0;
 
 	/**
 	 * Launch the application.
+	 * @param args Arguments passed to the main function
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -238,31 +399,31 @@ public class GUI extends JFrame {
 		c.gridy = 5;
 		contentPane.add(label, c);
 		
-		valueField01 = new JTextField("1");
-		valueField01.setEditable(false);
-		valueField01.setColumns(4);
-		valueField01.setMinimumSize(new Dimension(50,20));
+		elevatorStartingFloorTextField = new JTextField("1");
+		elevatorStartingFloorTextField.setEditable(false);
+		elevatorStartingFloorTextField.setColumns(4);
+		elevatorStartingFloorTextField.setMinimumSize(new Dimension(50,20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 2;
 		c.gridy = 5;
-		contentPane.add(valueField01, c);
+		contentPane.add(elevatorStartingFloorTextField, c);
 		
-		decrementButton01 = new JButton("-");
-		decrementButton01.addActionListener(actionHandler);
+		decrementElevatorStartingFloor = new JButton("-");
+		decrementElevatorStartingFloor.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 3;
 		c.gridy = 5;
-		contentPane.add(decrementButton01, c);
+		contentPane.add(decrementElevatorStartingFloor, c);
 		
-		incrementButton01 = new JButton("+");
-		incrementButton01.addActionListener(actionHandler);
+		incrementElevatorStartingFloor = new JButton("+");
+		incrementElevatorStartingFloor.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 4;
 		c.gridy = 5;
-		contentPane.add(incrementButton01, c);
+		contentPane.add(incrementElevatorStartingFloor, c);
 		
 		
 		label = new JLabel("Maximum Capacity (kg)");
@@ -273,31 +434,31 @@ public class GUI extends JFrame {
 		c.gridy = 6;
 		contentPane.add(label, c);
 		
-		valueField02 = new JTextField("100");
-		valueField02.setEditable(false);
-		valueField02.setColumns(4);
-		valueField02.setMinimumSize(new Dimension(50,20));
+		elevatorMaxCapacityTextField = new JTextField("100");
+		elevatorMaxCapacityTextField.setEditable(false);
+		elevatorMaxCapacityTextField.setColumns(4);
+		elevatorMaxCapacityTextField.setMinimumSize(new Dimension(50,20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 2;
 		c.gridy = 6;
-		contentPane.add(valueField02, c);
+		contentPane.add(elevatorMaxCapacityTextField, c);
 		
-		decrementButton02 = new JButton("-");
-		decrementButton02.addActionListener(actionHandler);
+		decrementElevatorMaxCapacity = new JButton("-");
+		decrementElevatorMaxCapacity.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 3;
 		c.gridy = 6;
-		contentPane.add(decrementButton02, c);
+		contentPane.add(decrementElevatorMaxCapacity, c);
 		
-		incrementButton02 = new JButton("+");
-		incrementButton02.addActionListener(actionHandler);
+		incrementElevatorMaxCapacity = new JButton("+");
+		incrementElevatorMaxCapacity.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 4;
 		c.gridy = 6;
-		contentPane.add(incrementButton02, c);
+		contentPane.add(incrementElevatorMaxCapacity, c);
 		
 		addElevatorButton = new JButton("Add Elevator");
 		addElevatorButton.addActionListener(actionHandler);
@@ -354,31 +515,31 @@ public class GUI extends JFrame {
 		c.gridy = 10;
 		contentPane.add(label, c);
 		
-		valueField03 = new JTextField("1");
-		valueField03.setEditable(false);
-		valueField03.setColumns(4);
-		valueField03.setMinimumSize(new Dimension(50,20));
+		userRequestStartingFloorTextField = new JTextField("1");
+		userRequestStartingFloorTextField.setEditable(false);
+		userRequestStartingFloorTextField.setColumns(4);
+		userRequestStartingFloorTextField.setMinimumSize(new Dimension(50,20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 2;
 		c.gridy = 10;
-		contentPane.add(valueField03, c);
+		contentPane.add(userRequestStartingFloorTextField, c);
 		
-		decrementButton03 = new JButton("-");
-		decrementButton03.addActionListener(actionHandler);
+		decrementUserRequestStartingFloor = new JButton("-");
+		decrementUserRequestStartingFloor.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 3;
 		c.gridy = 10;
-		contentPane.add(decrementButton03, c);
+		contentPane.add(decrementUserRequestStartingFloor, c);
 		
-		incrementButton03 = new JButton("+");
-		incrementButton03.addActionListener(actionHandler);
+		incrementUserRequestStartingFloor = new JButton("+");
+		incrementUserRequestStartingFloor.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 4;
 		c.gridy = 10;
-		contentPane.add(incrementButton03, c);
+		contentPane.add(incrementUserRequestStartingFloor, c);
 		
 		label = new JLabel("Destination Floor");
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -388,31 +549,31 @@ public class GUI extends JFrame {
 		c.gridy = 11;
 		contentPane.add(label, c);
 		
-		valueField04 = new JTextField("1");
-		valueField04.setEditable(false);
-		valueField04.setColumns(4);
-		valueField04.setMinimumSize(new Dimension(50,20));
+		userRequestDestinationFloorTextField = new JTextField("1");
+		userRequestDestinationFloorTextField.setEditable(false);
+		userRequestDestinationFloorTextField.setColumns(4);
+		userRequestDestinationFloorTextField.setMinimumSize(new Dimension(50,20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 2;
 		c.gridy = 11;
-		contentPane.add(valueField04, c);
+		contentPane.add(userRequestDestinationFloorTextField, c);
 		
-		decrementButton04 = new JButton("-");
-		decrementButton04.addActionListener(actionHandler);
+		decrementUserRequestDestinationFloor = new JButton("-");
+		decrementUserRequestDestinationFloor.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 3;
 		c.gridy = 11;
-		contentPane.add(decrementButton04, c);
+		contentPane.add(decrementUserRequestDestinationFloor, c);
 		
-		incrementButton04 = new JButton("+");
-		incrementButton04.addActionListener(actionHandler);
+		incrementUserRequestDestinationFloor = new JButton("+");
+		incrementUserRequestDestinationFloor.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,5,0);
 		c.gridx = 4;
 		c.gridy = 11;
-		contentPane.add(incrementButton04, c);
+		contentPane.add(incrementUserRequestDestinationFloor, c);
 		
 		label = new JLabel("User Priority");
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -440,31 +601,31 @@ public class GUI extends JFrame {
 		c.gridy = 13;
 		contentPane.add(label, c);
 		
-		valueField05 = new JTextField("0");
-		valueField05.setEditable(false);
-		valueField05.setColumns(4);
-		valueField05.setMinimumSize(new Dimension(50,20));
+		userRequestTimeTextField = new JTextField("0");
+		userRequestTimeTextField.setEditable(false);
+		userRequestTimeTextField.setColumns(4);
+		userRequestTimeTextField.setMinimumSize(new Dimension(50,20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,20,0);
 		c.gridx = 2;
 		c.gridy = 13;
-		contentPane.add(valueField05, c);
+		contentPane.add(userRequestTimeTextField, c);
 		
-		decrementButton05 = new JButton("-");
-		decrementButton05.addActionListener(actionHandler);
+		decrementUserRequestTime = new JButton("-");
+		decrementUserRequestTime.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,20,0);
 		c.gridx = 3;
 		c.gridy = 13;
-		contentPane.add(decrementButton05, c);
+		contentPane.add(decrementUserRequestTime, c);
 		
-		incrementButton05 = new JButton("+");
-		incrementButton05.addActionListener(actionHandler);
+		incrementUserRequestTime = new JButton("+");
+		incrementUserRequestTime.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,20,0);
 		c.gridx = 4;
 		c.gridy = 13;
-		contentPane.add(incrementButton05, c);
+		contentPane.add(incrementUserRequestTime, c);
 		
 		
 		addUserRequest = new JButton("Add User Request");
@@ -492,31 +653,31 @@ public class GUI extends JFrame {
 		c.gridy = 14;
 		contentPane.add(label, c);
 		
-		valueField06 = new JTextField("0");
-		valueField06.setEditable(false);
-		valueField06.setColumns(4);
-		valueField06.setMinimumSize(new Dimension(50,20));
+		emergencyRequestTimeTextField = new JTextField("0");
+		emergencyRequestTimeTextField.setEditable(false);
+		emergencyRequestTimeTextField.setColumns(4);
+		emergencyRequestTimeTextField.setMinimumSize(new Dimension(50,20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 2;
 		c.gridy = 14;
-		contentPane.add(valueField06, c);
+		contentPane.add(emergencyRequestTimeTextField, c);
 		
-		decrementButton06 = new JButton("-");
-		decrementButton06.addActionListener(actionHandler);
+		decrementEmergencyRequestTime = new JButton("-");
+		decrementEmergencyRequestTime.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 3;
 		c.gridy = 14;
-		contentPane.add(decrementButton06, c);
+		contentPane.add(decrementEmergencyRequestTime, c);
 		
-		incrementButton06 = new JButton("+");
-		incrementButton06.addActionListener(actionHandler);
+		incrementEmergencyRequestTime = new JButton("+");
+		incrementEmergencyRequestTime.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 4;
 		c.gridy = 14;
-		contentPane.add(incrementButton06, c);
+		contentPane.add(incrementEmergencyRequestTime, c);
 		
 		addEmergencyRequest = new JButton("Add Emergency Request");
 		addEmergencyRequest.addActionListener(actionHandler);
@@ -542,31 +703,31 @@ public class GUI extends JFrame {
 		c.gridy = 15;
 		contentPane.add(label, c);
 		
-		valueField07 = new JTextField("0");
-		valueField07.setEditable(false);
-		valueField07.setColumns(4);
-		valueField07.setMinimumSize(new Dimension(50,20));
+		resetRequestTimeTextField = new JTextField("0");
+		resetRequestTimeTextField.setEditable(false);
+		resetRequestTimeTextField.setColumns(4);
+		resetRequestTimeTextField.setMinimumSize(new Dimension(50,20));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 2;
 		c.gridy = 15;
-		contentPane.add(valueField07, c);
+		contentPane.add(resetRequestTimeTextField, c);
 		
-		decrementButton07 = new JButton("-");
-		decrementButton07.addActionListener(actionHandler);
+		decrementResetRequestTime = new JButton("-");
+		decrementResetRequestTime.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 3;
 		c.gridy = 15;
-		contentPane.add(decrementButton07, c);
+		contentPane.add(decrementResetRequestTime, c);
 		
-		incrementButton07 = new JButton("+");
-		incrementButton07.addActionListener(actionHandler);
+		incrementResetRequestTime = new JButton("+");
+		incrementResetRequestTime.addActionListener(actionHandler);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,0,10,0);
 		c.gridx = 4;
 		c.gridy = 15;
-		contentPane.add(incrementButton07, c);
+		contentPane.add(incrementResetRequestTime, c);
 		
 		addStopEmergencyRequest = new JButton("Add Stop Emergency Request");
 		addStopEmergencyRequest.addActionListener(actionHandler);
@@ -607,11 +768,14 @@ public class GUI extends JFrame {
 		contentPane.add(generateConfigurationFileButton, c);
 	}
 	
+	/**
+	 * This class implements the actionListener for the GUI components
+	 */
 	
 	private class handler implements ActionListener {
 
 		/**
-		 * Handles events triggered on the GUI by checking the source & performing appropriate logic operations
+		 * Handles events triggered on the GUI by checking the source and performing appropriate logic operations
 		 * @param event Event that has happened on the GUI, on a specific component
 		 */
 		@Override
@@ -719,8 +883,8 @@ public class GUI extends JFrame {
 				if(elevatorCounter<10)
 				{
 					elevatorCounter = elevatorCounter + 1;
-					String statement = "Elevator #"+String.valueOf(elevatorCounter)+" - Starting Floor "+String.valueOf(counter01)+ " - Max. Load "+String.valueOf(counter02);
-					elevatorArray.add(new Elevator(elevatorCounter- 1,counter02, counter01- 1));
+					String statement = "Elevator #"+String.valueOf(elevatorCounter)+" - Starting Floor "+String.valueOf(elevatorStartingFloorCounter)+ " - Max. Load "+String.valueOf(elevatorMaxCapacityCounter);
+					elevatorArray.add(new Elevator(elevatorCounter- 1,elevatorMaxCapacityCounter, elevatorStartingFloorCounter- 1));
 					elevatorModel.addElement(statement);
 				}
 			}
@@ -731,16 +895,16 @@ public class GUI extends JFrame {
 				{
 					int comboBoxIndex = UserPriorityComboBox.getSelectedIndex();
 					userRequestCounter = userRequestCounter + 1;
-					String statement = "User #"+String.valueOf(userRequestCounter)+" - From Floor "+String.valueOf(counter03)+ " to Floor "+String.valueOf(counter04)+ " at Time " + String.valueOf(counter05) + ", Priority ";
+					String statement = "User #"+String.valueOf(userRequestCounter)+" - From Floor "+String.valueOf(userRequestStartingFloorCounter)+ " to Floor "+String.valueOf(userRequestDestinationFloorCounter)+ " at Time " + String.valueOf(userRequestTimeCounter) + ", Priority ";
 					if (comboBoxIndex == 0)
 					{
-						userRequestArray.add(new userRequest(userRequestCounter- 1, counter03- 1,counter04- 1, UserPriority.NORMAL, 'u', counter05));
+						userRequestArray.add(new userRequest(userRequestCounter- 1, userRequestStartingFloorCounter- 1,userRequestDestinationFloorCounter- 1, UserPriority.NORMAL, 'u', userRequestTimeCounter));
 						statement = statement + "MEDIUM";
 					}
 					
 					else if (comboBoxIndex == 1)
 					{
-						userRequestArray.add(new userRequest(userRequestCounter- 1, counter03- 1,counter04- 1, UserPriority.HIGH, 'u', counter05));
+						userRequestArray.add(new userRequest(userRequestCounter- 1, userRequestStartingFloorCounter- 1,userRequestDestinationFloorCounter- 1, UserPriority.HIGH, 'u', userRequestTimeCounter));
 						statement = statement + "HIGH";
 					}
 					
@@ -754,8 +918,8 @@ public class GUI extends JFrame {
 				if(requestCounter<10)
 				{
 					requestCounter = requestCounter + 1;
-					String statement = "Emergency Request #"+String.valueOf(requestCounter)+" - At Time " + String.valueOf(counter06);
-					requestArray.add(new Request('e', counter06));
+					String statement = "Emergency Request #"+String.valueOf(requestCounter)+" - At Time " + String.valueOf(emergencyRequestTimeCounter);
+					requestArray.add(new Request('e', emergencyRequestTimeCounter));
 					requestModel.addElement(statement);
 				}
 			}
@@ -765,138 +929,138 @@ public class GUI extends JFrame {
 				if(requestCounter<10)
 				{
 					requestCounter = requestCounter + 1;
-					String statement = "Stop Emergency Request #"+String.valueOf(requestCounter)+" - At Time " + String.valueOf(counter07);
-					requestArray.add(new Request('s', counter07));
+					String statement = "Stop Emergency Request #"+String.valueOf(requestCounter)+" - At Time " + String.valueOf(resetRequestTimeCounter);
+					requestArray.add(new Request('s', resetRequestTimeCounter));
 					requestModel.addElement(statement);
 				}
 			}
 			
 			
 			
-			if(event.getSource()== incrementButton01 )
+			if(event.getSource()== incrementElevatorStartingFloor )
 			{
-				if(counter01<10)
+				if(elevatorStartingFloorCounter<10)
 				{
-					counter01 = counter01 + 1;
-					valueField01.setText(String.valueOf(counter01));
+					elevatorStartingFloorCounter = elevatorStartingFloorCounter + 1;
+					elevatorStartingFloorTextField.setText(String.valueOf(elevatorStartingFloorCounter));
 				}
 				
 			}
 			
-			if(event.getSource()== incrementButton02 )
+			if(event.getSource()== incrementElevatorMaxCapacity )
 			{
-				if(counter02<1000)
+				if(elevatorMaxCapacityCounter<1000)
 				{
-				counter02 = counter02 + 100;
-				valueField02.setText(String.valueOf(counter02));
+				elevatorMaxCapacityCounter = elevatorMaxCapacityCounter + 100;
+				elevatorMaxCapacityTextField.setText(String.valueOf(elevatorMaxCapacityCounter));
 				}
 			}
 			
-			if(event.getSource()== incrementButton03 )
+			if(event.getSource()== incrementUserRequestStartingFloor )
 			{
-				if(counter03<10)
+				if(userRequestStartingFloorCounter<10)
 				{
-				counter03 = counter03 + 1;
-				valueField03.setText(String.valueOf(counter03));
+				userRequestStartingFloorCounter = userRequestStartingFloorCounter + 1;
+				userRequestStartingFloorTextField.setText(String.valueOf(userRequestStartingFloorCounter));
 				}
 			}
 			
-			if(event.getSource()== incrementButton04)
+			if(event.getSource()== incrementUserRequestDestinationFloor)
 			{
-				if(counter04<10)
+				if(userRequestDestinationFloorCounter<10)
 				{
-				counter04 = counter04 + 1;
-				valueField04.setText(String.valueOf(counter04));
+				userRequestDestinationFloorCounter = userRequestDestinationFloorCounter + 1;
+				userRequestDestinationFloorTextField.setText(String.valueOf(userRequestDestinationFloorCounter));
 				}
 			}
 			
-			if(event.getSource()== incrementButton05 )
+			if(event.getSource()== incrementUserRequestTime )
 			{
-				if(counter05<120)
+				if(userRequestTimeCounter<120)
 				{
-				counter05 = counter05 + 1;
-				valueField05.setText(String.valueOf(counter05));
+				userRequestTimeCounter = userRequestTimeCounter + 1;
+				userRequestTimeTextField.setText(String.valueOf(userRequestTimeCounter));
 				}
 			}
 			
-			if(event.getSource()== incrementButton06 )
+			if(event.getSource()== incrementEmergencyRequestTime )
 			{
-				if(counter06<120)
+				if(emergencyRequestTimeCounter<120)
 				{
-				counter06 = counter06 + 1;
-				valueField06.setText(String.valueOf(counter06));
+				emergencyRequestTimeCounter = emergencyRequestTimeCounter + 1;
+				emergencyRequestTimeTextField.setText(String.valueOf(emergencyRequestTimeCounter));
 				}
 			}
 			
-			if(event.getSource()== incrementButton07 )
+			if(event.getSource()== incrementResetRequestTime )
 			{
-				if(counter07<120)
+				if(resetRequestTimeCounter<120)
 				{
-				counter07 = counter07 + 1;
-				valueField07.setText(String.valueOf(counter07));
+				resetRequestTimeCounter = resetRequestTimeCounter + 1;
+				resetRequestTimeTextField.setText(String.valueOf(resetRequestTimeCounter));
 				}
 			}
 			
-			if(event.getSource()== decrementButton01)
+			if(event.getSource()== decrementElevatorStartingFloor)
 			{
-				if(counter01>1)
+				if(elevatorStartingFloorCounter>1)
 				{
-					counter01 = counter01 - 1;
-					valueField01.setText(String.valueOf(counter01));
+					elevatorStartingFloorCounter = elevatorStartingFloorCounter - 1;
+					elevatorStartingFloorTextField.setText(String.valueOf(elevatorStartingFloorCounter));
 				}
 			}
 			
-			if(event.getSource()== decrementButton02)
+			if(event.getSource()== decrementElevatorMaxCapacity)
 			{
-				if(counter02>100)
+				if(elevatorMaxCapacityCounter>100)
 				{
-					counter02 = counter02 - 100;
-					valueField02.setText(String.valueOf(counter02));
+					elevatorMaxCapacityCounter = elevatorMaxCapacityCounter - 100;
+					elevatorMaxCapacityTextField.setText(String.valueOf(elevatorMaxCapacityCounter));
 				}
 			}
 			
-			if(event.getSource()==  decrementButton03)
+			if(event.getSource()==  decrementUserRequestStartingFloor)
 			{
-				if(counter03>1)
+				if(userRequestStartingFloorCounter>1)
 				{
-					counter03 = counter03 - 1;
-					valueField03.setText(String.valueOf(counter03));
+					userRequestStartingFloorCounter = userRequestStartingFloorCounter - 1;
+					userRequestStartingFloorTextField.setText(String.valueOf(userRequestStartingFloorCounter));
 				}
 			}
 			
-			if(event.getSource()== decrementButton04)
+			if(event.getSource()== decrementUserRequestDestinationFloor)
 			{
-				if(counter04>1)
+				if(userRequestDestinationFloorCounter>1)
 				{
-					counter04 = counter04 - 1;
-					valueField04.setText(String.valueOf(counter04));
+					userRequestDestinationFloorCounter = userRequestDestinationFloorCounter - 1;
+					userRequestDestinationFloorTextField.setText(String.valueOf(userRequestDestinationFloorCounter));
 				}
 			}
 			
-			if(event.getSource()== decrementButton05)
+			if(event.getSource()== decrementUserRequestTime)
 			{
-				if(counter05>0)
+				if(userRequestTimeCounter>0)
 				{
-					counter05 = counter05 - 1;
-					valueField05.setText(String.valueOf(counter05));
+					userRequestTimeCounter = userRequestTimeCounter - 1;
+					userRequestTimeTextField.setText(String.valueOf(userRequestTimeCounter));
 				}
 			}
 			
-			if(event.getSource()== decrementButton06)
+			if(event.getSource()== decrementEmergencyRequestTime)
 			{
-				if(counter06>0)
+				if(emergencyRequestTimeCounter>0)
 				{
-					counter06 = counter06 - 1;
-					valueField06.setText(String.valueOf(counter06));
+					emergencyRequestTimeCounter = emergencyRequestTimeCounter - 1;
+					emergencyRequestTimeTextField.setText(String.valueOf(emergencyRequestTimeCounter));
 				}
 			}
 			
-			if(event.getSource()== decrementButton07)
+			if(event.getSource()== decrementResetRequestTime)
 			{
-				if(counter07>0)
+				if(resetRequestTimeCounter>0)
 				{
-					counter07 = counter07 - 1;
-					valueField07.setText(String.valueOf(counter07));
+					resetRequestTimeCounter = resetRequestTimeCounter - 1;
+					resetRequestTimeTextField.setText(String.valueOf(resetRequestTimeCounter));
 				}
 			}
 			

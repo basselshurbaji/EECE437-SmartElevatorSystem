@@ -8,14 +8,23 @@ import com.google.gson.GsonBuilder;
  * 
  */
 public class EmergencyEvent implements Loggable {
+	/**
+	 * Shared instance of the GSON builder
+	 */
 	static 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	/**
+	 * Emergency type
+	 */
 	String type;
+	/**
+	 * Time associated with emergency
+	 */
 	String time;
 	
 	/**
 	 * Public constructor for EmergencyEvent.
-	 * @param String type, String time
-	 * 
+	 * @param type Type of emergency
+	 * @param time Time associated with emergency
 	 */
 	public EmergencyEvent(String type, String time) {
 		this.type = type;

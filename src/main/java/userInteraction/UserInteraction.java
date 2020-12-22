@@ -11,8 +11,13 @@ import elevatorManager.ElevatorManagerRequest;
  * It communicates with the ElevatorManager to handle the requests.
  */
 public class UserInteraction {
+	/**
+	 * ElevatorManager instance
+	 */
 	ElevatorManager elevatorManager;
-	
+	/**
+	 * Shared Instance of User Interaction
+	 */
 	private static UserInteraction sharedInstance;
 	
 	/**

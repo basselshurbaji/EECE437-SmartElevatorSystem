@@ -9,6 +9,9 @@ import userInteraction.UserPriority;
  * It extends the ElevatorManagerRequest class. 
  */
 public class ElevatorManagerDestinationRequest extends ElevatorManagerRequest {
+	/**
+	 * Elevator class instance
+	 */
 	Elevator elevator;
 	
 	/**

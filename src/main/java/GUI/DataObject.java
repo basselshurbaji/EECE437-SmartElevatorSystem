@@ -6,14 +6,25 @@ import elevator.Elevator;
 import floor.Floor;
 
 /**
- * STATUS: In-use in our system
  * This class is used carry data related to the Floors, Elevators, Requests, and User Requests
  */
 
 public class DataObject {
+	/**
+	 * ArrayList of floors
+	 */
 	private ArrayList<Floor> floorArrayList;
+	/**
+	 *  ArrayList of elevators
+	 */
 	private ArrayList<Elevator> elevatorArrayList;
+	/**
+	 *  ArrayList of requests
+	 */
 	private ArrayList<Request> requestArrayList;
+	/**
+	 *  ArrayList of user requests
+	 */
 	private ArrayList<userRequest> userRequestArrayList;
 	
 	/**
@@ -34,6 +45,7 @@ public class DataObject {
 	}
 	
 	/**
+	 * Function used to get all Floors stored in the DataObject
 	 * @return Returns ArrayList of Floors
 	 */
 	public ArrayList<Floor> getFloorArrayList(){
@@ -41,6 +53,7 @@ public class DataObject {
 	}
 	
 	/**
+	 * Function used to get all Elevators stored in the DataObject
 	 * @return Returns ArrayList of Elevators
 	 */
 	public ArrayList<Elevator> getElevatorArrayList(){
@@ -48,6 +61,7 @@ public class DataObject {
 	}
 	
 	/**
+	 * Function used to get all Requests stored in the DataObject
 	 * @return Returns ArrayList of Requests
 	 */
 	public ArrayList<Request> getRequestArrayList(){
@@ -55,6 +69,7 @@ public class DataObject {
 	}
 	
 	/**
+	 * Function used to get all User Requests stored in the DataObject
 	 * @return Returns ArrayList of userRequests
 	 */
 	public ArrayList<userRequest> getUserRequestArrayList(){

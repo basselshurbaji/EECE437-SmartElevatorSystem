@@ -12,16 +12,34 @@ import userInteraction.UserPriority;
  * 
  */
 public class ElevatorEvent implements Loggable {
+	/**
+	 * Shared instance of the GSON builder
+	 */
 	static 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	/**
+	 * Elevator ID
+	 */
 	private int elevatorId;
+	/**
+	 * Source floor associated with the elevator
+	 */
 	private int sourceFloor;
+	/**
+	 * Destination floor associated with the elevator
+	 */
 	private int destiniationFloor;
+	/**
+	 * Time associated with an elevator event
+	 */
 	private String time;
 	
 	/**
 	 * Public constructor for ElevatorEvent.
-	 * @param int elevatorId, int sourceFloor, int destionationFloor, String time, UserPriority
-	 * 
+	 * @param elevatorId ID associated with elevator instance
+	 * @param sourceFloor Source Floor associated with elevator instance
+	 * @param destiniationFloor Destionation Floor associated with elevator instance
+	 * @param time Time associated with elevator event
+	 * @param priority User priority associated with elevator event
 	 */
 	public ElevatorEvent(int elevatorId, int sourceFloor, int destiniationFloor, String time, UserPriority priority) {
 		this.elevatorId = elevatorId;

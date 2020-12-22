@@ -12,11 +12,16 @@ import floor.FloorPriority;
 import userInteraction.UserInteraction;
 import elevator.Elevator;
 import GUI.Request;
+
+/**
+ * This class is used for simulation of our Elevator system based on a configuration file
+ */
+
 public class IntegratedDemo {
 	
 	/**
-	 * This class is used for simulation of our Elevator system based on a configuration file
-	 * @param args
+	 * Main function
+	 * @param args Main arguments taken
 	 */
 	public static void main(String[] args) {
 		
@@ -84,6 +89,7 @@ public class IntegratedDemo {
 	/**
 	 * Initializing set of Users based on fetched requests
 	 * @param userRequestArrayList ArrayList of user requests
+	 * @return Returns list of users
 	 */
 	public static ArrayList<User> usersInitialization(ArrayList<userRequest> userRequestArrayList)
 	{
@@ -97,7 +103,7 @@ public class IntegratedDemo {
 	}
 	
 	/**
-	 * Formats & Prints the passed parameter 'time'
+	 * Formats and Prints the passed parameter 'time'
 	 * @param time Time value
 	 */
 	private static void printTime(int time)
