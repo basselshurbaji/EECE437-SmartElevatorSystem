@@ -7,9 +7,9 @@ import com.google.gson.GsonBuilder;
 
 import userInteraction.UserPriority;
 
-/*
- * STATUS: Complete//Not used in current implementation
- * This class defines the structure of events logged by the DataMonitor.
+/**
+ * This class defines the structure of events logged by the DataMonitor,implements Loggable.
+ * 
  */
 public class ElevatorEvent implements Loggable {
 	static 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -18,6 +18,11 @@ public class ElevatorEvent implements Loggable {
 	private int destiniationFloor;
 	private String time;
 	
+	/**
+	 * Public constructor for ElevatorEvent.
+	 * @param int elevatorId, int sourceFloor, int destionationFloor, String time, UserPriority
+	 * 
+	 */
 	public ElevatorEvent(int elevatorId, int sourceFloor, int destiniationFloor, String time, UserPriority priority) {
 		this.elevatorId = elevatorId;
 		this.sourceFloor = sourceFloor;
@@ -25,6 +30,10 @@ public class ElevatorEvent implements Loggable {
 		this.time = time;
 	}
 	
+	/**
+	 * Converts ElevatorEvent to Json
+	 * @return String Data 
+	 */
 	public String toLogData() {   
 	    return gson.toJson(this);
 	}

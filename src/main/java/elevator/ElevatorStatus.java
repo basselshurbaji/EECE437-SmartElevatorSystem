@@ -1,8 +1,8 @@
 package elevator;
 
 /*
- * STATUS: In Progress/Used in current implementation
  * Enum ElevatorStatus is used to indicate the elevator status.
+ * either handling request, stationary, up or down
  */
 public enum ElevatorStatus {
 	HANDLING_REQUEST,
