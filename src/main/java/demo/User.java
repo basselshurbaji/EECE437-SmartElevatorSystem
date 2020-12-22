@@ -39,6 +39,7 @@ public class User implements ElevatorObserver {
 	
 	/**
 	 * Request destination for the user
+	 * @param elevator Observed elevator instance
 	 */
 	public void requestDestination(Elevator elevator) {
 		UI.requestElevatorToDestination(destinationFloor, priority, elevator);
