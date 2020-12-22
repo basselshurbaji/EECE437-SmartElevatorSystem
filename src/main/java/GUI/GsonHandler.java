@@ -13,8 +13,18 @@ import com.google.gson.Gson;
 import elevator.Elevator;
 import floor.Floor;
 
+/**
+ * STATUS: In-use in our system
+ * This class is used to read from/setup the Elevator System configuration file.
+ */
+
 public class GsonHandler {
 	
+	/**
+	 * Generates a JSON configuration file based on a DataObject instance
+	 * @param DO DataObject instance
+	 * @return Returns boolean indicating whether the JSON file has been generated successfully
+	 */
 	public static boolean GenerateJson(DataObject DO) {
 		
 		Gson gson = new Gson();
@@ -24,7 +34,6 @@ public class GsonHandler {
 		String RequestJsonStr = gson.toJson(DO.getRequestArrayList());
 		String UserRequesJsonStr = gson.toJson(DO.getUserRequestArrayList());
 		
-		//writing to a json file using Gson
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter("data.json");
@@ -48,6 +57,12 @@ public class GsonHandler {
 		}
 		return false;
 	}
+	
+	/**
+	 * Reading from a JSON configuration file, and returning a DataObject instance
+	 * @param fileName Takes filename associated with the JSON file we'd like to read from
+	 * @return Returns DataObject instance containing the configuration data from the JSON file
+	 */
 	
 	public static DataObject JsonParser(String fileName) {
 		

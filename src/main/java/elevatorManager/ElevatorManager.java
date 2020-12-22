@@ -154,7 +154,7 @@ public class ElevatorManager implements ElevatorObserver {
 	/**
 	 * This method finds the nearest free elevator to the passed floor. 
 	 * @param floorId id of floor of interest
-	 * @return Elevator that is the avilable and nearest to floorId 
+	 * @return Elevator that is the available and nearest to floorId 
 	 */
 	private Elevator getNearestAvailableElevatorToFloor(int floorId) {
 		Elevator nearestElevator = null;

@@ -1,7 +1,7 @@
 package userInteraction;
 
 /**
- * Enum that is an indicator of the user's priority.
+ * Enum UserPriority is used to indicate the user priority.
  */
 public enum UserPriority {
 	NORMAL,

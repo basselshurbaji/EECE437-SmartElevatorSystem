@@ -34,6 +34,11 @@ import userInteraction.UserPriority;
 import GUI.userRequest;
 import floor.FloorPriority;
 
+/**
+ * STATUS: In-use in our system
+ * This class defines the GUI used to generate the configuration file for the
+ * Elevator System.
+ */
 
 public class GUI extends JFrame {
 	
@@ -122,7 +127,7 @@ public class GUI extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the GUI frame and all associated components.
 	 */
 	public GUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -605,6 +610,10 @@ public class GUI extends JFrame {
 	
 	private class handler implements ActionListener {
 
+		/**
+		 * Handles events triggered on the GUI by checking the source & performing appropriate logic operations
+		 * @param event Event that has happened on the GUI, on a specific component
+		 */
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			
