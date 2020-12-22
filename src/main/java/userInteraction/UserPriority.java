@@ -1,7 +1,7 @@
 package userInteraction;
 
 /*
- * STATUS: In Progress/Not used in current implementation
+ * STATUS: In-use in our System
  * Enum UserPriority is used to indicate the user priority.
  */
 public enum UserPriority {
