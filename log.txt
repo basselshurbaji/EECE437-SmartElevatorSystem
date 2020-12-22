@@ -52,3 +52,23 @@ null
   "type": "NORMAL MODE INITIATED",
   "time": "21/12/2020 22:43:03"
 }
+{
+  "elevatorId": 1,
+  "sourceFloor": 0,
+  "destiniationFloor": 2,
+  "time": "22/12/2020 09:52:21"
+}
+{
+  "elevatorId": 2,
+  "sourceFloor": 2,
+  "destiniationFloor": 0,
+  "time": "22/12/2020 09:52:31"
+}
+{
+  "type": "EMERGENCY MODE INITIATED",
+  "time": "22/12/2020 09:52:32"
+}
+{
+  "type": "NORMAL MODE INITIATED",
+  "time": "22/12/2020 09:52:34"
+}

@@ -41,7 +41,7 @@ public class userRequest extends Request{
 	}
 	
 	/**
-	 * @return Returns Pickup floor associated with request
+	 * @return returns Pickup floor associated with request
 	 */
 	public int getPickUpFloor() {
 		return pickUpFloor;
@@ -62,28 +62,32 @@ public class userRequest extends Request{
 	}
 	
 	/**
-	 * @return Sets Pickup floor associated with request
+	 * 
+	 * @param id  Sets Pickup floor associated with request
 	 */
 	public void setID(int id) {
 		this.id = id;
 	}
 	
 	/**
-	 * @return Sets destination floor associated with request
+	 * 
+	 * @param PF Sets destination floor associated with request
 	 */
 	public void setPickUpFloor(int PF) {
 		this.pickUpFloor = PF;
 	}
 	
 	/**
-	 * @return Sets destination floor associated with request
+	 * 
+	 * @param DF  Sets destination floor associated with request
 	 */
 	public void setDestinationFloor(int DF) {
 		this.destFloor = DF;
 	}
 	
 	/**
-	 * @return Sets priority associated with request
+	 * 
+	 * @param P  Sets priority associated with request
 	 */
 	public void setPriority(UserPriority P) {
 		this.priority = P;

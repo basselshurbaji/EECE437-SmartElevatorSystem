@@ -11,6 +11,8 @@ public class Floor {
 	/**
 	 * Public constructor of floor.
 	 * It initiates the floor's id and priority.
+	 * @param id
+	 * @param priority
 	 */
 	public Floor(int id, FloorPriority priority) {
 		this.id = id;

@@ -14,11 +14,10 @@ import elevator.Elevator;
 import GUI.Request;
 public class IntegratedDemo {
 	
-/**
- * STATUS: In-use in our system
- * This class is used for simulation of our Elevator system based on a configuration file
- */
-
+	/**
+	 * This class is used for simulation of our Elevator system based on a configuration file
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		//Fetching UserInteraction and ElevatorManager Singletons

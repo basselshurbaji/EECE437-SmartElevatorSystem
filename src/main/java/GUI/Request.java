@@ -37,14 +37,16 @@ public class Request {
 	}
 	
 	/**
-	 * @return Set time associated with request
+	 * set time associated with request
+	 * @param t
 	 */
 	public void setTime(int t) {
 		this.time = t;
 	}
 	
 	/**
-	 * @return Set type associated with request
+	 * Set type associated with request
+	 * @param T
 	 */
 	public void setType(char T) {
 		this.type = T;
